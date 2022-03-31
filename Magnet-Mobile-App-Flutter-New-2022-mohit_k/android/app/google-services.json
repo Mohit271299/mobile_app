@@ -1,0 +1,71 @@
+{
+  "project_info": {
+    "project_number": "265126886647",
+    "firebase_url": "https://magnet-apps.firebaseio.com",
+    "project_id": "magnet-apps",
+    "storage_bucket": "magnet-apps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:265126886647:android:7b65f9b82f351d0d1be7f2",
+        "android_client_info": {
+          "package_name": "com.example.magnet_update"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "265126886647-g6ibhffndeaicf35mgpj4824h4tmb338.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.magnet_update",
+            "certificate_hash": "20b3e9a1b40dc0110fe40f8fdab810d62e3ec65b"
+          }
+        },
+        {
+          "client_id": "265126886647-sd5ori9a5p7aev9ni104f434m0od28i2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.magnet_update",
+            "certificate_hash": "f710b8662e4e683b3031852dad654cb7d042649d"
+          }
+        },
+        {
+          "client_id": "265126886647-t2mlc80bpvj4forno43vh583udcia25h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.magnet_update",
+            "certificate_hash": "489fb3579a9cd581f6969b82d62c0f6293c98426"
+          }
+        },
+        {
+          "client_id": "265126886647-obh7oulbs92ct79uc27dav6uh3fjfjs7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJs0fq8kUYv72J9wyllmTx-8LTKMgnh0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "265126886647-obh7oulbs92ct79uc27dav6uh3fjfjs7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "265126886647-emscdl20rgajlr65fhol3n59h3gudi85.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.maglinc.magnet"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

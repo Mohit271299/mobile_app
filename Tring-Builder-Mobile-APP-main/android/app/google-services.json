@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "125203924753",
+    "project_id": "tring-app-first-project",
+    "storage_bucket": "tring-app-first-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:125203924753:android:f1ccd1a859d83ba176eeb0",
+        "android_client_info": {
+          "package_name": "one.tring.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "125203924753-gr22ts775snf79m6nn3tf9uie5l56j03.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "one.tring.app",
+            "certificate_hash": "489fb3579a9cd581f6969b82d62c0f6293c98426"
+          }
+        },
+        {
+          "client_id": "125203924753-j0o9r5m3m6b3n841dg2ds2flt4u02b0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDSOLdUdK4dKo4kM6TgISCycld-sh0WQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "125203924753-j0o9r5m3m6b3n841dg2ds2flt4u02b0u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

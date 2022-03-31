@@ -1,0 +1,2 @@
+module magnet.update {
+}
