@@ -13,6 +13,7 @@ import 'package:tring/screens/drawer/ui/drawerscreen.dart';
 import 'package:tring/screens/estimate/controller/estimateshowcustomercontroller.dart';
 import 'package:tring/screens/estimate/ui/estimatefilter.dart';
 
+import 'estimate_edit.dart';
 import 'estimate_select_customer.dart';
 
 class EstimateList extends StatefulWidget {
@@ -70,7 +71,7 @@ class _EstimateListState extends State<EstimateList> {
   }
 
   void displaySalesActionButton(BuildContext context,
-      {required int id, required int listIndex}) {
+      {required int id, required int listIndex ,required String cust_name ,required String cust_no ,}) {
     showModalBottomSheet(
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -80,30 +81,35 @@ class _EstimateListState extends State<EstimateList> {
       context: context,
       builder: (BuildContext context) {
         return StatefulBuilder(
-          builder: (context, state) {
+          builder: (context,StateSetter state) {
             return Container(
               height: screenHeight * 0.24,
               child: Column(
                 children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.only(
-                        right: 38, left: 38, bottom: 20, top: 20.0),
-                    decoration: BoxDecoration(
-                        color: HexColor(CommonColor.appActiveColor),
-                        borderRadius: BorderRadius.circular(10)),
+                  GestureDetector(
+                    onTap: (){
+                      Get.to(EditEstimate(estimate_id: id, customer_number: cust_no, customer_name: cust_name,));
+                    },
                     child: Container(
-                      alignment: Alignment.center,
                       margin: const EdgeInsets.only(
-                        top: 13,
-                        bottom: 13,
-                      ),
-                      child: const Text(
-                        'Edit',
-                        style: TextStyle(
-                            fontSize: 15,
-                            decoration: TextDecoration.none,
-                            color: Colors.white,
-                            fontFamily: AppDetails.fontMedium),
+                          right: 38, left: 38, bottom: 20, top: 20.0),
+                      decoration: BoxDecoration(
+                          color: HexColor(CommonColor.appActiveColor),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(
+                          top: 13,
+                          bottom: 13,
+                        ),
+                        child: const Text(
+                          'Edit',
+                          style: TextStyle(
+                              fontSize: 15,
+                              decoration: TextDecoration.none,
+                              color: Colors.white,
+                              fontFamily: AppDetails.fontMedium),
+                        ),
                       ),
                     ),
                   ),
@@ -309,6 +315,14 @@ class _EstimateListState extends State<EstimateList> {
                                                     onTap: () =>
                                                         displaySalesActionButton(
                                                             context,
+                                                            cust_no: estimateController
+                                                                .getEstimateModel!
+                                                                .data![index]
+                                                                .contact!.mobileNo!,
+                                                            cust_name :estimateController
+                                                                .getEstimateModel!
+                                                                .data![index]
+                                                                .contact!.name! ,
                                                             id: int.parse(
                                                               estimateController
                                                                   .getEstimateModel!

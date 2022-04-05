@@ -77,7 +77,7 @@ class _DashboardState extends State<Dashboard> {
           onTap: ()=> _globalKey!.currentState!.openDrawer(),
           child: Padding(
             padding: const EdgeInsets.only(
-                left: 20.0, top: 18.0, bottom: 18.0, right: 10.0),
+                left: 23.0, top: 20.0, bottom: 20.0, right: 12.0),
             child: InkWell(
               child: Image.asset(
                 CommonImage.drawer_icon,

@@ -87,96 +87,105 @@ class _LeadsSelectCustomerState extends State<LeadsSelectCustomer> {
               height: 21.0,
             ),
             Obx(() => (leadsController.isCustomerLoading.value == false &&
-                leadsController.getAllCustomerDetails
-                    .toString()
-                    .isNotEmpty &&
-                leadsController.getAllCustomerDetails.toString() !=
-                    'null' &&
-                int.parse(leadsController
-                    .getAllCustomerDetails!.data!.length
-                    .toString()) !=
-                    0 &&
-                int.parse(leadsController
-                    .getAllCustomerDetails!.data!.length
-                    .toString()) >=
-                    0)
+                    leadsController.getAllCustomerDetails
+                        .toString()
+                        .isNotEmpty &&
+                    leadsController.getAllCustomerDetails.toString() !=
+                        'null' &&
+                    int.parse(leadsController
+                            .getAllCustomerDetails!.data!.length
+                            .toString()) !=
+                        0 &&
+                    int.parse(leadsController
+                            .getAllCustomerDetails!.data!.length
+                            .toString()) >=
+                        0)
                 ? CommonWidget().ListviewListingBuilder(
-              context: context,
-              getItemCount:
-              leadsController.getAllCustomerDetails!.data!.length,
-              itemBuilder: (BuildContext context, int index) {
-                return InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                    Get.to(LeadsAddScreen());
-                    // gotoSalesShowDetailScreen(
-                    //   context,
-                    //   estimateNo: '00',
-                    //   mobileNumber: leadsController
-                    //       .getAllCustomerDetails!.data![index].mobileNo
-                    //       .toString(),
-                    //   name: leadsController
-                    //       .getAllCustomerDetails!.data![index].name
-                    //       .toString(),
-                    // );
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.only(bottom: 15.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                          color: HexColor(
-                            CommonColor.dialogBorderColor,
-                          ),
-                          width: 2.0),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    width: screenWidth,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Flexible(
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 18.0, top: 18.0, bottom: 18.0),
-                            child: Text(
-                              leadsController.getAllCustomerDetails!
-                                  .data![index].name
+                    context: context,
+                    getItemCount:
+                        leadsController.getAllCustomerDetails!.data!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                          Get.to(
+                            LeadsAddScreen(
+                              selectCustomerId: leadsController
+                                  .getAllCustomerDetails!.data![index].id
                                   .toString(),
-                              maxLines: 2,
-                              style: cartNameStyle(),
+                              selectCustomerName: leadsController
+                                  .getAllCustomerDetails!.data![index].name
+                                  .toString(),
                             ),
+                          );
+                          // gotoSalesShowDetailScreen(
+                          //   context,
+                          //   estimateNo: '00',
+                          //   mobileNumber: leadsController
+                          //       .getAllCustomerDetails!.data![index].mobileNo
+                          //       .toString(),
+                          //   name: leadsController
+                          //       .getAllCustomerDetails!.data![index].name
+                          //       .toString(),
+                          // );
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.only(bottom: 15.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                                color: HexColor(
+                                  CommonColor.dialogBorderColor,
+                                ),
+                                width: 2.0),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          width: screenWidth,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 18.0, top: 18.0, bottom: 18.0),
+                                  child: Text(
+                                    leadsController.getAllCustomerDetails!
+                                        .data![index].name
+                                        .toString(),
+                                    maxLines: 2,
+                                    style: cartNameStyle(),
+                                  ),
+                                ),
+                              ),
+                              Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 18.0, bottom: 18.0, right: 18.0),
+                                  child: Text(
+                                    leadsController.getAllCustomerDetails!
+                                        .data![index].mobileNo
+                                        .toString(),
+                                    style: cartMobileNumberStyle(),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        Flexible(
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 18.0, bottom: 18.0, right: 18.0),
-                            child: Text(
-                              leadsController.getAllCustomerDetails!
-                                  .data![index].mobileNo
-                                  .toString(),
-                              style: cartMobileNumberStyle(),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            )
+                      );
+                    },
+                  )
                 : CommonWidget().ListviewListing(
-              context: context,
-              getItemCount: 16,
-              getWidets: CommonWidget().showShimmer(
-                shimmerHeight: 50,
-                leftM: 0.0,
-                rightM: 0.0,
-                bottomM: 20.0,
-              ),
-            )),
+                    context: context,
+                    getItemCount: 16,
+                    getWidets: CommonWidget().showShimmer(
+                      shimmerHeight: 50,
+                      leftM: 0.0,
+                      rightM: 0.0,
+                      bottomM: 20.0,
+                    ),
+                  )),
           ],
         ),
       ),

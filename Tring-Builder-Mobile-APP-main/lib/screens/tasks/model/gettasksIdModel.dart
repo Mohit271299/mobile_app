@@ -1,30 +1,25 @@
-class GetAllTasksModel {
+class GetIDTasksModel {
   bool? success;
-  List<Data_tasks>? data;
+  Data_idTask? data;
 
-  GetAllTasksModel({this.success, this.data});
+  GetIDTasksModel({this.success, this.data});
 
-  GetAllTasksModel.fromJson(Map<String, dynamic> json) {
+  GetIDTasksModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    if (json['data'] != null) {
-      data = <Data_tasks>[];
-      json['data'].forEach((v) {
-        data!.add(new Data_tasks.fromJson(v));
-      });
-    }
+    data = json['data'] != null ? new Data_idTask.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['success'] = this.success;
     if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+      data['data'] = this.data!.toJson();
     }
     return data;
   }
 }
 
-class Data_tasks {
+class Data_idTask {
   int? id;
   int? typeId;
   String? subject;
@@ -41,8 +36,9 @@ class Data_tasks {
   int? updatedBy;
   Type? type;
   Contact? contact;
+  Owner? owner;
 
-  Data_tasks(
+  Data_idTask(
       {this.id,
         this.typeId,
         this.subject,
@@ -58,9 +54,10 @@ class Data_tasks {
         this.addedBy,
         this.updatedBy,
         this.type,
-        this.contact});
+        this.contact,
+        this.owner});
 
-  Data_tasks.fromJson(Map<String, dynamic> json) {
+  Data_idTask.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     typeId = json['typeId'];
     subject = json['subject'];
@@ -78,6 +75,7 @@ class Data_tasks {
     type = json['type'] != null ? new Type.fromJson(json['type']) : null;
     contact =
     json['contact'] != null ? new Contact.fromJson(json['contact']) : null;
+    owner = json['owner'] != null ? new Owner.fromJson(json['owner']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -101,6 +99,9 @@ class Data_tasks {
     }
     if (this.contact != null) {
       data['contact'] = this.contact!.toJson();
+    }
+    if (this.owner != null) {
+      data['owner'] = this.owner!.toJson();
     }
     return data;
   }
@@ -133,13 +134,13 @@ class Contact {
   String? emailId;
   String? businessName;
   String? businessType;
-  String? alternateMobileNo;
+  Null? alternateMobileNo;
   Null? phoneNo;
   String? contactOn;
   Null? fax;
-  String? website;
+  Null? website;
   String? birthDate;
-  String? marriageDate;
+  Null? marriageDate;
   Null? socialMediaAccountLinks;
   bool? sameAddress;
   String? sourceOfPromotion;
@@ -224,6 +225,55 @@ class Contact {
     data['descriptionInformation'] = this.descriptionInformation;
     data['created_by'] = this.createdBy;
     data['updated_by'] = this.updatedBy;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    return data;
+  }
+}
+
+class Owner {
+  int? id;
+  String? name;
+  String? email;
+  Null? profileImage;
+  String? phoneNumber;
+  String? role;
+  Null? uid;
+  String? createdAt;
+  String? updatedAt;
+
+  Owner(
+      {this.id,
+        this.name,
+        this.email,
+        this.profileImage,
+        this.phoneNumber,
+        this.role,
+        this.uid,
+        this.createdAt,
+        this.updatedAt});
+
+  Owner.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    email = json['email'];
+    profileImage = json['profile_image'];
+    phoneNumber = json['phone_number'];
+    role = json['role'];
+    uid = json['uid'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['email'] = this.email;
+    data['profile_image'] = this.profileImage;
+    data['phone_number'] = this.phoneNumber;
+    data['role'] = this.role;
+    data['uid'] = this.uid;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     return data;

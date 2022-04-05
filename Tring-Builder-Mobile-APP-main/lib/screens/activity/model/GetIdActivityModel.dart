@@ -1,131 +1,126 @@
-class GetAllTasksModel {
+class GetIdActivityModel {
   bool? success;
-  List<Data_tasks>? data;
+  Data? data;
 
-  GetAllTasksModel({this.success, this.data});
+  GetIdActivityModel({this.success, this.data});
 
-  GetAllTasksModel.fromJson(Map<String, dynamic> json) {
+  GetIdActivityModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    if (json['data'] != null) {
-      data = <Data_tasks>[];
-      json['data'].forEach((v) {
-        data!.add(new Data_tasks.fromJson(v));
-      });
-    }
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['success'] = this.success;
     if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+      data['data'] = this.data!.toJson();
     }
     return data;
   }
 }
 
-class Data_tasks {
+class Data {
   int? id;
-  int? typeId;
-  String? subject;
-  int? ownerId;
-  String? assignTo;
-  int? contactId;
-  String? address;
-  String? fromDate;
-  String? toDate;
-  String? reminder;
-  String? priority;
+  int? activityTypeId;
+  int? leadOwnerId;
+  String? leadOwnerName;
+  int? associatedLeadId;
+  String? location;
+  String? activityDate;
+  String? activityTime;
   String? description;
-  int? addedBy;
-  int? updatedBy;
-  Type? type;
-  Contact? contact;
+  String? timeNeeded;
+  int? addedById;
+  Null? completedById;
+  bool? isCompleted;
+  Null? priority;
+  Null? createdBy;
+  Null? updatedBy;
+  String? createdAt;
+  String? updatedAt;
+  AssociatedLead? associatedLead;
+  ActivityType? activityType;
 
-  Data_tasks(
+  Data(
       {this.id,
-        this.typeId,
-        this.subject,
-        this.ownerId,
-        this.assignTo,
-        this.contactId,
-        this.address,
-        this.fromDate,
-        this.toDate,
-        this.reminder,
-        this.priority,
+        this.activityTypeId,
+        this.leadOwnerId,
+        this.leadOwnerName,
+        this.associatedLeadId,
+        this.location,
+        this.activityDate,
+        this.activityTime,
         this.description,
-        this.addedBy,
+        this.timeNeeded,
+        this.addedById,
+        this.completedById,
+        this.isCompleted,
+        this.priority,
+        this.createdBy,
         this.updatedBy,
-        this.type,
-        this.contact});
+        this.createdAt,
+        this.updatedAt,
+        this.associatedLead,
+        this.activityType});
 
-  Data_tasks.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    typeId = json['typeId'];
-    subject = json['subject'];
-    ownerId = json['ownerId'];
-    assignTo = json['assignTo'];
-    contactId = json['contactId'];
-    address = json['address'];
-    fromDate = json['fromDate'];
-    toDate = json['toDate'];
-    reminder = json['reminder'];
-    priority = json['priority'];
+    activityTypeId = json['activityTypeId'];
+    leadOwnerId = json['leadOwnerId'];
+    leadOwnerName = json['leadOwnerName'];
+    associatedLeadId = json['associatedLeadId'];
+    location = json['location'];
+    activityDate = json['activityDate'];
+    activityTime = json['activityTime'];
     description = json['description'];
-    addedBy = json['addedBy'];
-    updatedBy = json['updatedBy'];
-    type = json['type'] != null ? new Type.fromJson(json['type']) : null;
-    contact =
-    json['contact'] != null ? new Contact.fromJson(json['contact']) : null;
+    timeNeeded = json['timeNeeded'];
+    addedById = json['addedById'];
+    completedById = json['completedById'];
+    isCompleted = json['isCompleted'];
+    priority = json['priority'];
+    createdBy = json['created_by'];
+    updatedBy = json['updated_by'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    associatedLead = json['associatedLead'] != null
+        ? new AssociatedLead.fromJson(json['associatedLead'])
+        : null;
+    activityType = json['activityType'] != null
+        ? new ActivityType.fromJson(json['activityType'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['typeId'] = this.typeId;
-    data['subject'] = this.subject;
-    data['ownerId'] = this.ownerId;
-    data['assignTo'] = this.assignTo;
-    data['contactId'] = this.contactId;
-    data['address'] = this.address;
-    data['fromDate'] = this.fromDate;
-    data['toDate'] = this.toDate;
-    data['reminder'] = this.reminder;
-    data['priority'] = this.priority;
+    data['activityTypeId'] = this.activityTypeId;
+    data['leadOwnerId'] = this.leadOwnerId;
+    data['leadOwnerName'] = this.leadOwnerName;
+    data['associatedLeadId'] = this.associatedLeadId;
+    data['location'] = this.location;
+    data['activityDate'] = this.activityDate;
+    data['activityTime'] = this.activityTime;
     data['description'] = this.description;
-    data['addedBy'] = this.addedBy;
-    data['updatedBy'] = this.updatedBy;
-    if (this.type != null) {
-      data['type'] = this.type!.toJson();
+    data['timeNeeded'] = this.timeNeeded;
+    data['addedById'] = this.addedById;
+    data['completedById'] = this.completedById;
+    data['isCompleted'] = this.isCompleted;
+    data['priority'] = this.priority;
+    data['created_by'] = this.createdBy;
+    data['updated_by'] = this.updatedBy;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    if (this.associatedLead != null) {
+      data['associatedLead'] = this.associatedLead!.toJson();
     }
-    if (this.contact != null) {
-      data['contact'] = this.contact!.toJson();
+    if (this.activityType != null) {
+      data['activityType'] = this.activityType!.toJson();
     }
     return data;
   }
 }
 
-class Type {
-  int? id;
-  String? type;
-
-  Type({this.id, this.type});
-
-  Type.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    type = json['type'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['type'] = this.type;
-    return data;
-  }
-}
-
-class Contact {
+class AssociatedLead {
   int? id;
   String? name;
   String? contactType;
@@ -134,13 +129,13 @@ class Contact {
   String? businessName;
   String? businessType;
   String? alternateMobileNo;
-  Null? phoneNo;
+  String? phoneNo;
   String? contactOn;
-  Null? fax;
+  String? fax;
   String? website;
   String? birthDate;
   String? marriageDate;
-  Null? socialMediaAccountLinks;
+  String? socialMediaAccountLinks;
   bool? sameAddress;
   String? sourceOfPromotion;
   String? sourceCampaign;
@@ -150,7 +145,7 @@ class Contact {
   String? createdAt;
   String? updatedAt;
 
-  Contact(
+  AssociatedLead(
       {this.id,
         this.name,
         this.contactType,
@@ -175,7 +170,7 @@ class Contact {
         this.createdAt,
         this.updatedAt});
 
-  Contact.fromJson(Map<String, dynamic> json) {
+  AssociatedLead.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     contactType = json['contactType'];
@@ -226,6 +221,25 @@ class Contact {
     data['updated_by'] = this.updatedBy;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    return data;
+  }
+}
+
+class ActivityType {
+  int? id;
+  String? type;
+
+  ActivityType({this.id, this.type});
+
+  ActivityType.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    type = json['type'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['type'] = this.type;
     return data;
   }
 }

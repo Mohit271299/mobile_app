@@ -32,34 +32,7 @@ class SelectTowerState extends State<SelectTower> {
 
   int selectSalesIndex = 0;
   String selectSalesTowerName = '';
-  List<String> alphabet = [
-    'a',
-    'b',
-    'c',
-    'd',
-    'e',
-    'f',
-    'g',
-    'h',
-    'i',
-    'j',
-    'k',
-    'l',
-    'm',
-    'n',
-    'o',
-    'p',
-    'q',
-    'r',
-    's',
-    't',
-    'u',
-    'v',
-    'w',
-    'x',
-    'y',
-    'z'
-  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -169,7 +142,8 @@ class SelectTowerState extends State<SelectTower> {
                                 boxShadow: ContainerInnerShadow,
                               ),
                               child: Text(
-                                alphabet[index].toUpperCase(),
+                                salesController
+                                    .getSelectTown!.data![index].tower.toString().toUpperCase(),
                                 style: cartNameStyle(
                                   textColor: (selectSalesIndex == index)
                                       ? CommonColor.textfieldBorder

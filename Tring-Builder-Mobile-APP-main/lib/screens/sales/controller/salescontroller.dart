@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:convert' as convert;
 import 'dart:developer';
@@ -16,7 +17,11 @@ import 'package:tring/screens/sales/model/GetSelectTown.dart';
 import 'package:tring/screens/sales/model/getAllCustomerDetails.dart';
 import 'package:tring/screens/sales/model/getAllSalesModel.dart';
 import 'package:tring/screens/sales/model/getSelectFloor.dart';
+import 'package:tring/screens/sales/ui/sales_list.dart';
 import 'package:tring/service/commonservice.dart';
+
+import '../../activity/model/GetIdActivityModel.dart';
+import '../model/getIdSalesModel.dart';
 
 class SalesController extends GetxController {
   RxBool isTrue = true.obs;
@@ -551,7 +556,7 @@ class SalesController extends GetxController {
 
   // Get All Sales Fron API
   Future<dynamic> getAllSalesFromAPI({
-    int recordPerPage = 10,
+    int recordPerPage = 50,
     int pageNumber = 1,
     String sortBy = "invoiceNumber",
   }) async {
@@ -1060,6 +1065,426 @@ class SalesController extends GetxController {
     } catch (e) {
       hideLoader(context);
       print('1-1-1-1 Get Sales ${e.toString()}');
+    }
+  }
+
+//getsalesbyId details
+  RxBool isIdsalesLoading = false.obs;
+  GetIdSalesModel? getIdSalesModel;
+  var getIdSalesModelList = GetIdSalesModel().obs;
+
+  Future<dynamic> GetSalesById({
+    required BuildContext context,
+    required int salesId,
+  }) async {
+    isIdsalesLoading(true);
+    String url = (URLConstants.base_url + URLConstants.storeSales + '/$salesId');
+    String msg = '';
+    String tokens = CommonService().getStoreValue(keys: 'token').toString();
+
+    // debugPrint('Get Sales Token ${tokens.toString()}');
+    // try { } catch (e) {
+    //   print('1-1-1-1 Get tasksId ${e.toString()}');
+    // }
+
+    http.Response response = await http.get(Uri.parse(url), headers: {
+      'Authorization': 'Bearer ${tokens.toString()}',
+    });
+
+    print('Response request: ${response.request}');
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+    var data = convert.jsonDecode(response.body);
+
+    if (response == null) {
+      return null;
+    } else if (response.statusCode == 200 || response.statusCode == 201) {
+      final status = data["success"];
+      getIdSalesModel = GetIdSalesModel.fromJson(data);
+      getIdSalesModelList(getIdSalesModel);
+
+      // print("final_data : ${getActivityModelList.value.data!.subject}");
+
+      // Datum _get = getAllCustomerModelList.value.data!.firstWhere((element) =>
+      // element.id == getIdActivityModelList.value.data!.associatedLead!.id);
+      // customer_name = _get.name!;
+      // customer_id = _get.id!;
+      // owner_id = getIdActivityModelList.value.data!.leadOwnerId!;
+
+      if (status == true) {
+        isIdsalesLoading(false);
+
+        salesByEmployeeController.text = getIdSalesModelList.value.data!.salesByEmployee!;
+        salesBrokerNameController.text = getIdSalesModelList.value.data!.brokerName!;
+        typeofSales.value = getIdSalesModelList.value.data!.typeOfSale!;
+        flatNoController.text = getIdSalesModelList.value.data!.flat!.blockNumber!;
+        sqftController.text = getIdSalesModelList.value.data!.flat!.squareFeet!.toString();
+        priceperSqftController.text= getIdSalesModelList.value.data!.pricePerSquareFeet!.toString();
+        basicAmountController.text = getIdSalesModelList.value.data!.basicAmount.toString();
+        gstController.text = getIdSalesModelList.value.data!.gst.toString();
+        otherChargesController.text = getIdSalesModelList.value.data!.otherChargeAmount.toString();
+        homeLoanChargeController.text= getIdSalesModelList.value.data!.homeLoanCharges.toString();
+
+        //Othercharges
+        salesOtherParkingController.text = getIdSalesModelList.value.data!.otherCharges!.parking.toString();
+        salesOtherMaintenanceController.text = getIdSalesModelList.value.data!.otherCharges!.maintenanceDeposite.toString();
+        salesOtherPreferentialController.text = getIdSalesModelList.value.data!.otherCharges!.preferentialLocationCharges.toString();
+        salesOtherRegistrationController.text = getIdSalesModelList.value.data!.otherCharges!.registrationFee.toString();
+        salesOtherStampController.text = getIdSalesModelList.value.data!.otherCharges!.stampDuty.toString();
+        salesOtherBrokerageController.text = getIdSalesModelList.value.data!.otherCharges!.brokerageCharges.toString();
+        salesOtherTitleSalesController.text = getIdSalesModelList.value.data!.otherCharges!.titleSalesDeedCharges.toString();
+        salesOtherNotaryController.text = getIdSalesModelList.value.data!.otherCharges!.notaryFrankingCharges.toString();
+        salesOtherMortgageController.text = getIdSalesModelList.value.data!.otherCharges!.mortgageCharges.toString();
+        salesOtherOtherController.text = getIdSalesModelList.value.data!.otherCharges!.otherCharges.toString();
+        salesOtherChargesClubmembershipController.text = getIdSalesModelList.value.data!.otherCharges!.clubMembership.toString();
+        salesOtherChargesCivicamentialController.text = getIdSalesModelList.value.data!.otherCharges!.civicAmenitiesCharges.toString();
+        salesOtherChargesExternalDevelopmentController.text = getIdSalesModelList.value.data!.otherCharges!.externalDevelopmentCharges.toString();
+        salesOtherChargesInfrastructureDevelopmentController.text = getIdSalesModelList.value.data!.otherCharges!.infrastructureDevelopmentCharges.toString();
+        salesOtherChargesOverheadController.text = getIdSalesModelList.value.data!.otherCharges!.overheadCharges.toString();
+        salesOtherChargesInsuranceController.text = getIdSalesModelList.value.data!.otherCharges!.insuranceFee.toString();
+        salesOtherChargesUtilityController.text = getIdSalesModelList.value.data!.otherCharges!.utilityCharges.toString();
+        salesOtherChargesHomeInspectionController.text= getIdSalesModelList.value.data!.otherCharges!.homeInspectionCost.toString();
+        salesOtherChargesInteriorsController.text = getIdSalesModelList.value.data!.otherCharges!.interiors.toString();
+        salesOtherChargesPlumbingController.text = getIdSalesModelList.value.data!.otherCharges!.plumbing.toString();
+        salesOtherChargesFurnitureController.text = getIdSalesModelList.value.data!.otherCharges!.furniture.toString();
+        salesOtherChargesElectricWorkController.text = getIdSalesModelList.value.data!.otherCharges!.electricWork.toString();
+        salesOtherChargesMiscellaneousController.text = getIdSalesModelList.value.data!.otherCharges!.miscellaneousCharges.toString();
+        salesOtherChargesBrokerageController.text = getIdSalesModelList.value.data!.otherCharges!.brokerageCharges.toString();
+
+        //HomeloanCharges
+        salesHomeLoanLoanAmountController.text = getIdSalesModelList.value.data!.otherCharges!.loanAmount.toString();
+        salesHomeLoanInterestChargesController.text = getIdSalesModelList.value.data!.otherCharges!.interestCharges.toString();
+        salesHomeLoanLoanProcessingFee.text = getIdSalesModelList.value.data!.otherCharges!.loanProcessingFee.toString();
+        salesHomeLoanPrepaymentChargesController.text =getIdSalesModelList.value.data!.otherCharges!.prepaymentCharges.toString();
+        salesHomeLoanLatePaymentChargesController.text = getIdSalesModelList.value.data!.otherCharges!.latePaymentCharges.toString();
+        salesHomeLoanApplicationProcessingController.text = getIdSalesModelList.value.data!.otherCharges!.applicationProcessingFee.toString();
+        salesHomeLoanBrokerageChargesController.text = getIdSalesModelList.value.data!.otherCharges!.brokerageCharges.toString();
+        salesHomeLoanInsuranceFeeController.text = getIdSalesModelList.value.data!.otherCharges!.insuranceFee.toString();
+        salesHomeLoanMortgageChargesController.text = getIdSalesModelList.value.data!.otherCharges!.mortgageCharges.toString();
+        salesHomeLoanOtherChargesController.text = getIdSalesModelList.value.data!.otherCharges!.otherCharges.toString();
+
+        showSalesBillTotal.value = double.parse(getIdSalesModelList.value.data!.totalAmount.toString());
+
+        // subjectController.text =
+        //     getidtaskModelList.value.data!.subject.toString();
+
+        // assignToController.text =
+        //     getidtaskModelList.value.data!.assignTo.toString();
+        // associated_lead_Controller.text = customer_name!;
+        // addressController.text =
+        //     getidtaskModelList.value.data!.address.toString();
+        // fromdateController.text =
+        //     getidtaskModelList.value.data!.fromDate!.toString();
+        // todateController.text =
+        //     getidtaskModelList.value.data!.toDate.toString();
+        // reminderdateController.text =
+        //     getidtaskModelList.value.data!.reminder.toString();
+        // priorityController.text =
+        //     getidtaskModelList.value.data!.priority.toString();
+        // descriptionController.text =
+        //     getidtaskModelList.value.data!.description.toString();
+
+        // CommonWidget().showToaster(msg: msg.toString());
+        return getIdSalesModel;
+      } else {
+        CommonWidget().showToaster(msg: msg.toString());
+        return null;
+      }
+    } else if (response.statusCode == 422) {
+      CommonWidget().showToaster(msg: msg.toString());
+    } else if (response.statusCode == 401) {
+      CommonService().unAuthorizedUser();
+    } else {
+      CommonWidget().showToaster(msg: msg.toString());
+    }
+
+  }
+
+  Future<dynamic> storeSalesbyID(
+      {required BuildContext context,
+        required num inVoiceNumber,
+        required int salesId,
+        required String invoideDate,
+        required int contact_id,
+      }) async {
+    String url = (URLConstants.base_url + URLConstants.storeSales + '/$salesId');
+    String msg = '';
+    String tokens = CommonService().getStoreValue(keys: 'token').toString();
+
+    Map params = {
+      "invoiceNumber": inVoiceNumber,
+      "otherChargeAmount":double.parse(showOtherChargesTotal.value.toString()).ceilToDouble(),
+      "invoiceDate": invoideDate.toString(),
+      "totalAmount": double.parse(showSalesBillTotal.toString()).ceilToDouble(),
+      "contactId": contact_id,
+      "typeOfSale": typeofSales.value.toString(),
+      "flatId": int.parse(selectFlatId.value.toString()),
+      "squareFeet": (int.parse(sqftController.text.length.toString()) != 0)
+          ? double.parse(sqftController.text.toString()).ceilToDouble()
+          : 0,
+      "pricePerSquareFeet": (int.parse(priceperSqftController.text.length.toString()) != 0)
+          ? double.parse(priceperSqftController.text.toString())
+          .ceilToDouble()
+          : 0,
+      "basicAmount": (int.parse(basicAmountController.text.length.toString()) !=
+          0)
+          ? double.parse(basicAmountController.text.toString()).ceilToDouble()
+          : 0,
+      "gst": (int.parse(gstController.text.length.toString()) != 0)
+          ? double.parse(gstController.text.toString()).ceilToDouble()
+          : 0,
+      "homeLoanCharges": double.parse(showHomeLoanChargesTotal.value.toString()),
+      "salesByEmployee": salesByEmployeeController.text.toString().trim(),
+      "brokerName": salesBrokerNameController.text.toString().trim(),
+      "otherCharges": {
+        "parking":
+        (int.parse(salesOtherParkingController.text.length.toString()) != 0)
+            ? double.parse(salesOtherParkingController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "maintenanceDeposite": (int.parse(
+            salesOtherMaintenanceController.text.length.toString()) !=
+            0)
+            ? double.parse(salesOtherMaintenanceController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "preferentialLocationCharges": (int.parse(
+            salesOtherPreferentialController.text.length.toString()) !=
+            0)
+            ? double.parse(salesOtherPreferentialController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "registrationFee": (int.parse(
+            salesOtherRegistrationController.text.length.toString()) !=
+            0)
+            ? double.parse(salesOtherRegistrationController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "stampDuty":
+        (int.parse(salesOtherStampController.text.length.toString()) != 0)
+            ? double.parse(salesOtherStampController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "brokerageCharges":
+        (int.parse(salesOtherBrokerageController.text.length.toString()) !=
+            0)
+            ? double.parse(salesOtherBrokerageController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "titleSalesDeedCharges":
+        (int.parse(salesOtherTitleSalesController.text.length.toString()) !=
+            0)
+            ? double.parse(salesOtherTitleSalesController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "notaryFrankingCharges":
+        (int.parse(salesOtherNotaryController.text.length.toString()) != 0)
+            ? double.parse(salesOtherNotaryController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "mortgageCharges":
+        (int.parse(salesOtherMortgageController.text.length.toString()) !=
+            0)
+            ? double.parse(salesOtherMortgageController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "otherCharges":
+        (int.parse(salesOtherOtherController.text.length.toString()) != 0)
+            ? double.parse(salesOtherOtherController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "clubMembership": (int.parse(salesOtherChargesClubmembershipController
+            .text.length
+            .toString()) !=
+            0)
+            ? double.parse(
+            salesOtherChargesClubmembershipController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "civicAmenitiesCharges": (int.parse(
+            salesOtherChargesCivicamentialController.text.length
+                .toString()) !=
+            0)
+            ? double.parse(
+            salesOtherChargesCivicamentialController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "externalDevelopmentCharges": (int.parse(
+            salesOtherChargesExternalDevelopmentController.text.length
+                .toString()) !=
+            0)
+            ? double.parse(salesOtherChargesExternalDevelopmentController.text
+            .toString())
+            .ceilToDouble()
+            : 0,
+        "infrastructureDevelopmentCharges": (int.parse(
+            salesOtherChargesInfrastructureDevelopmentController
+                .text.length
+                .toString()) !=
+            0)
+            ? double.parse(salesOtherChargesInfrastructureDevelopmentController
+            .text
+            .toString())
+            .ceilToDouble()
+            : 0,
+        "overheadCharges": (int.parse(salesOtherChargesOverheadController
+            .text.length
+            .toString()) !=
+            0)
+            ? double.parse(salesOtherChargesOverheadController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "insuranceFee": (int.parse(salesOtherChargesInsuranceController
+            .text.length
+            .toString()) !=
+            0)
+            ? double.parse(salesOtherChargesInsuranceController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "utilityCharges": (int.parse(salesOtherChargesUtilityController
+            .text.length
+            .toString()) !=
+            0)
+            ? double.parse(salesOtherChargesUtilityController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "homeInspectionCost": (int.parse(
+            salesOtherChargesHomeInspectionController.text.length
+                .toString()) !=
+            0)
+            ? double.parse(
+            salesOtherChargesHomeInspectionController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "interiors": (int.parse(salesOtherChargesInteriorsController.text.length
+            .toString()) !=
+            0)
+            ? double.parse(salesOtherChargesInteriorsController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "plumbing": (int.parse(salesOtherChargesPlumbingController.text.length
+            .toString()) !=
+            0)
+            ? double.parse(salesOtherChargesPlumbingController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "furniture": (int.parse(salesOtherChargesFurnitureController.text.length
+            .toString()) !=
+            0)
+            ? double.parse(salesOtherChargesFurnitureController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "electricWork": (int.parse(salesOtherChargesElectricWorkController
+            .text.length
+            .toString()) !=
+            0)
+            ? double.parse(
+            salesOtherChargesElectricWorkController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "miscellaneousCharges": (int.parse(
+            salesOtherChargesMiscellaneousController.text.length
+                .toString()) !=
+            0)
+            ? double.parse(
+            salesOtherChargesMiscellaneousController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "loanAmount": (int.parse(
+            salesHomeLoanLoanAmountController.text.length.toString()) !=
+            0)
+            ? double.parse(salesHomeLoanLoanAmountController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "interestCharges": (int.parse(salesHomeLoanInterestChargesController
+            .text.length
+            .toString()) !=
+            0)
+            ? double.parse(
+            salesHomeLoanInterestChargesController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "loanProcessingFee":
+        (int.parse(salesHomeLoanLoanProcessingFee.text.length.toString()) !=
+            0)
+            ? double.parse(salesHomeLoanLoanProcessingFee.text.toString())
+            .ceilToDouble()
+            : 0,
+        "prepaymentCharges": (int.parse(salesHomeLoanPrepaymentChargesController
+            .text.length
+            .toString()) !=
+            0)
+            ? double.parse(
+            salesHomeLoanPrepaymentChargesController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "latePaymentCharges": (int.parse(
+            salesHomeLoanLatePaymentChargesController.text.length
+                .toString()) !=
+            0)
+            ? double.parse(
+            salesHomeLoanLatePaymentChargesController.text.toString())
+            .ceilToDouble()
+            : 0,
+        "applicationProcessingFee": (int.parse(
+            salesHomeLoanApplicationProcessingController.text.length
+                .toString()) !=
+            0)
+            ? double.parse(salesHomeLoanApplicationProcessingController.text
+            .toString())
+            .ceilToDouble()
+            : 0,
+      }
+    };
+
+    // try {
+    //   } catch (e) {
+    //   // hideLoader(context);
+    //   print('1-1-1-1 Get Contacts ${e.toString()}');
+    // }
+    debugPrint('Add tasks Params => $params');
+    http.Response response = await http.put(
+      Uri.parse(url),
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ${tokens.toString()}',
+      },
+      body: json.encode(params),
+    );
+
+    print('Response request: ${response.request}');
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    var data = convert.jsonDecode(response.body);
+    // print('Data :- ${data}');
+    if (response == null) {
+      return null;
+    } else if (response.statusCode == 200 || response.statusCode == 201) {
+      // hideLoader(context);
+      final status = data["success"];
+      if (status == true) {
+        // hideLoader(context);
+        cleanAllTextForm();
+        CommonWidget().showToaster(msg: data["message"].toString());
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SalesList()));
+        // gotoContactScreen(context);
+        return getAllSalesModel;
+      } else {
+        // hideLoader(context);
+        CommonWidget().showToaster(msg: msg.toString());
+        return null;
+      }
+    } else if (response.statusCode == 422) {
+      // hideLoader(context);
+      CommonWidget().showToaster(msg: msg.toString());
+    } else if (response.statusCode == 401) {
+      // hideLoader(context);
+      CommonService().unAuthorizedUser();
+    } else {
+      // hideLoader(context);
+      CommonWidget().showToaster(msg: msg.toString());
     }
   }
 }

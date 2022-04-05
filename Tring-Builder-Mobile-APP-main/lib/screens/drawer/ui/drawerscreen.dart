@@ -13,6 +13,8 @@ import 'package:tring/common/common_widget.dart';
 import 'package:tring/common/loader/page_loader.dart';
 import 'package:tring/screens/authentication/login/controller/logincontroller.dart';
 
+import '../../payment/ui/payment_listing.dart';
+
 class DrawerScreen extends StatefulWidget {
   @override
   _DrawerScreenState createState() => _DrawerScreenState();
@@ -117,8 +119,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 ),
                 drawerItem(
                   itemIcon: CommonImage.contact_icons,
-                  itemName: Texts.contact,
-                  onTap: () {},
+                  itemName: Texts.payment,
+                  onTap: () {
+                    Get.to(paymentListing());
+                  },
                 ),
                 drawerHeader(
                   drawerHeaderTitle: Texts.reports,

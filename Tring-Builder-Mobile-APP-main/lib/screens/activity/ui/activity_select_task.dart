@@ -15,27 +15,14 @@ import '../controller/ActivityController.dart';
 import 'activity_add.dart';
 import 'activity_select_customer.dart';
 
-class SelectTaskType extends StatefulWidget {
-  const SelectTaskType({Key? key}) : super(key: key);
+class Select_activityTaskType extends StatefulWidget {
+  const Select_activityTaskType({Key? key}) : super(key: key);
 
   @override
-  _SelectTaskTypeState createState() => _SelectTaskTypeState();
+  _Select_activityTaskTypeState createState() => _Select_activityTaskTypeState();
 }
 
-class _SelectTaskTypeState extends State<SelectTaskType> {
-  List<contact_type> type = <contact_type>[
-    const contact_type('Customer', 'CUSTOMER'),
-    const contact_type('Vendor', 'VENDOR'),
-    const contact_type('Contractor', 'CONTRACTOR'),
-    const contact_type('Broker', 'BROKER'),
-    const contact_type('Lead', 'LEAD'),
-    const contact_type('Buyer', 'BUYER'),
-    const contact_type('Seller', 'SELLER'),
-    const contact_type('Buyer/Seller', 'BUYER_SALLER'),
-    const contact_type('Investor', 'INVESTOR'),
-    const contact_type('Agent', 'AGENT'),
-    const contact_type('Other', 'OTHER'),
-  ];
+class _Select_activityTaskTypeState extends State<Select_activityTaskType> {
 
   final TextEditingController searchController = TextEditingController();
   final activityController = Get.put(ActivityController());
@@ -225,11 +212,4 @@ class _SelectTaskTypeState extends State<SelectTaskType> {
       ),
     );
   }
-}
-
-class contact_type {
-  const contact_type(this.name, this.value);
-
-  final String name;
-  final String value;
 }

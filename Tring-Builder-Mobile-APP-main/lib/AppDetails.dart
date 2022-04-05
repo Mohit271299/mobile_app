@@ -21,4 +21,7 @@ class URLConstants{
   static const storePurchase = "purchase";
   static const ContactUrl = "contact";
   static const ActivityUrl = "activity";
-}
+  static const leadUrl = "lead";
+  static const taskUrl = "task";
+
+ }

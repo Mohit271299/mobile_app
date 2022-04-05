@@ -10,6 +10,7 @@ import 'package:tring/common/common_routing.dart';
 import 'package:tring/common/common_style.dart';
 import 'package:tring/common/common_widget.dart';
 import 'package:tring/screens/drawer/ui/drawerscreen.dart';
+import 'package:tring/screens/product/ui/products_edit.dart';
 import 'package:tring/screens/purchase/controller/purchasecontroller.dart';
 import 'package:tring/screens/sales/controller/salescontroller.dart';
 import 'package:tring/screens/sales/ui/sales_select_customer.dart';
@@ -57,30 +58,35 @@ class ProductsListState extends State<ProductsList> {
       context: context,
       builder: (BuildContext context) {
         return StatefulBuilder(
-          builder: (context, state) {
+          builder: (context,StateSetter state) {
             return Container(
               height: screenHeight * 0.24,
               child: Column(
                 children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.only(
-                        right: 38, left: 38, bottom: 20, top: 20.0),
-                    decoration: BoxDecoration(
-                        color: HexColor(CommonColor.appActiveColor),
-                        borderRadius: BorderRadius.circular(10)),
+                  GestureDetector(
+                    onTap: (){
+                      Get.to(EditProducts(product_id: id,));
+                    },
                     child: Container(
-                      alignment: Alignment.center,
                       margin: const EdgeInsets.only(
-                        top: 13,
-                        bottom: 13,
-                      ),
-                      child: const Text(
-                        'Edit',
-                        style: TextStyle(
-                            fontSize: 15,
-                            decoration: TextDecoration.none,
-                            color: Colors.white,
-                            fontFamily: AppDetails.fontMedium),
+                          right: 38, left: 38, bottom: 20, top: 20.0),
+                      decoration: BoxDecoration(
+                          color: HexColor(CommonColor.appActiveColor),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(
+                          top: 13,
+                          bottom: 13,
+                        ),
+                        child: const Text(
+                          'Edit',
+                          style: TextStyle(
+                              fontSize: 15,
+                              decoration: TextDecoration.none,
+                              color: Colors.white,
+                              fontFamily: AppDetails.fontMedium),
+                        ),
                       ),
                     ),
                   ),

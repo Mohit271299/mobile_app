@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -7,10 +8,12 @@ import 'package:tring/common/Texts.dart';
 import 'package:tring/common/common_widget.dart';
 import 'package:tring/screens/drawer/ui/drawerscreen.dart';
 import 'package:tring/screens/tasks/controller/TasksController.dart';
+import 'package:tring/screens/tasks/ui/tasks_edit.dart';
 
 import '../../../AppDetails.dart';
 import '../../../common/common_color.dart';
 import '../../../common/common_style.dart';
+import 'Tasks_select_task.dart';
 
 class TasksList extends StatefulWidget {
   const TasksList({Key? key}) : super(key: key);
@@ -20,69 +23,18 @@ class TasksList extends StatefulWidget {
 }
 
 class _TasksListState extends State<TasksList> {
-  void displaySalesActionButton(BuildContext context,
-      {required int id, required int listIndex}) {
+
+  void displayBottomSheet(BuildContext context) {
     showModalBottomSheet(
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0))),
       isScrollControlled: true,
-      isDismissible: true,
       context: context,
       builder: (BuildContext context) {
         return StatefulBuilder(
           builder: (context, state) {
-            return Container(
-              height: screenHeight * 0.24,
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.only(
-                        right: 38, left: 38, bottom: 20, top: 20.0),
-                    decoration: BoxDecoration(
-                        color: HexColor(CommonColor.appActiveColor),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Container(
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.only(
-                        top: 13,
-                        bottom: 13,
-                      ),
-                      child: const Text(
-                        'Edit',
-                        style: TextStyle(
-                            fontSize: 15,
-                            decoration: TextDecoration.none,
-                            color: Colors.white,
-                            fontFamily: AppDetails.fontMedium),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin:
-                        const EdgeInsets.only(right: 38, left: 38, bottom: 20),
-                    decoration: BoxDecoration(
-                        color: HexColor(CommonColor.appActiveColor),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Container(
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.only(
-                        top: 13,
-                        bottom: 13,
-                      ),
-                      child: const Text(
-                        'Delete',
-                        style: TextStyle(
-                            fontSize: 15,
-                            decoration: TextDecoration.none,
-                            color: Colors.white,
-                            fontFamily: AppDetails.fontMedium),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
+            return const taskSelectTaskType();
           },
         );
       },
@@ -99,6 +51,8 @@ class _TasksListState extends State<TasksList> {
   int _indexData = 0;
 
   final tasksController = Get.put(TasksController());
+  int? selected_tasks;
+  int? selected_contact;
 
   @override
   void initState() {
@@ -117,7 +71,7 @@ class _TasksListState extends State<TasksList> {
           floatingActionButton: FloatingActionButton(
             backgroundColor: HexColor(CommonColor.appActiveColor),
             onPressed: () {
-              // gotoAddProductScreen(context)
+              displayBottomSheet(context);
             },
             child: const Icon(
               Icons.add,
@@ -230,8 +184,7 @@ class _TasksListState extends State<TasksList> {
                                                   tasksController
                                                       .getAllTasksModel!
                                                       .data![index]
-                                                      .subject
-                                                      .toString(),
+                                                      .type!.type!,
                                                   maxLines: 1,
                                                   style: cartNameStyle(),
                                                 ),
@@ -252,18 +205,174 @@ class _TasksListState extends State<TasksList> {
                                                     width: 17,
                                                     height: 17,
                                                     child: InkWell(
-                                                      onTap: () =>
-                                                          displaySalesActionButton(
-                                                              context,
-                                                              id: int.parse(
-                                                                tasksController
-                                                                    .getAllTasksModel!
-                                                                    .data![
-                                                                        index]
-                                                                    .id
-                                                                    .toString(),
-                                                              ),
-                                                              listIndex: index),
+                                                      onTap: () async {
+                                                        await showModalBottomSheet(
+                                                            context: context,
+                                                            isScrollControlled: true,
+                                                            builder: (context) {
+                                                              return StatefulBuilder(
+                                                                builder: (BuildContext context,
+                                                                    StateSetter setState) {
+                                                                  return Padding(
+                                                                    padding:
+                                                                    MediaQuery.of(context).viewInsets,
+                                                                    child: Container(
+                                                                      color: Color(0xff737373),
+                                                                      child: Container(
+                                                                        decoration: BoxDecoration(
+                                                                          color: Colors.white,
+                                                                          borderRadius: BorderRadius.only(
+                                                                            topRight: Radius.circular(15),
+                                                                            topLeft: Radius.circular(15),
+                                                                          ),
+                                                                        ),
+                                                                        child: Container(
+                                                                          decoration: BoxDecoration(
+                                                                            color: Colors.white,
+                                                                            borderRadius: BorderRadius.only(
+                                                                                topLeft:
+                                                                                Radius.circular(30),
+                                                                                topRight:
+                                                                                Radius.circular(30)),
+                                                                          ),
+                                                                          child: SingleChildScrollView(
+                                                                            child: Column(
+                                                                              mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                              children: [
+                                                                                SizedBox(
+                                                                                  height: 20,
+                                                                                ),
+                                                                                GestureDetector(
+                                                                                  onTap: () {
+                                                                                    setState(() {
+                                                                                      tasksController.task_id =
+                                                                                          tasksController
+                                                                                              .getAllTasksModel!
+                                                                                              .data![index]
+                                                                                              .id;
+                                                                                      tasksController.customer_id =
+                                                                                          tasksController
+                                                                                              .getAllTasksModel!
+                                                                                              .data![index]
+                                                                                              .contactId;
+                                                                                    });
+                                                                                    print(
+                                                                                        selected_tasks);
+                                                                                    // Get.toNamed(BindingUtils.ledgerScreenEditRoute);
+                                                                                    Get.to(EditTasks(
+                                                                                      contactId: tasksController.customer_id!,
+                                                                                      taskId:
+                                                                                      tasksController.task_id!,)
+                                                                                    );
+
+                                                                                    // Navigator.of(context).push(MaterialPageRoute(
+                                                                                    //     builder: (c) => ledgerEditScreen(
+                                                                                    //       customer: selected_customer,
+                                                                                    //     )));
+                                                                                  },
+                                                                                  child: Container(
+                                                                                      margin:
+                                                                                      EdgeInsets.only(
+                                                                                          right: 38,
+                                                                                          left: 38,
+                                                                                          bottom: 10),
+                                                                                      decoration: BoxDecoration(
+                                                                                          color: Color(
+                                                                                              0xfff3f3f3),
+                                                                                          borderRadius:
+                                                                                          BorderRadius
+                                                                                              .circular(
+                                                                                              10)),
+                                                                                      child: Container(
+                                                                                          alignment:
+                                                                                          Alignment
+                                                                                              .center,
+                                                                                          margin: EdgeInsets
+                                                                                              .only(
+                                                                                            top: 13,
+                                                                                            bottom: 13,
+                                                                                          ),
+                                                                                          child: Text(
+                                                                                            'Edit',
+                                                                                            style: TextStyle(
+                                                                                                fontSize:
+                                                                                                15,
+                                                                                                decoration:
+                                                                                                TextDecoration
+                                                                                                    .none,
+                                                                                                fontWeight:
+                                                                                                FontWeight
+                                                                                                    .w600,
+                                                                                                color: Color(
+                                                                                                    0xff000000),
+                                                                                                fontFamily:
+                                                                                                'GR'),
+                                                                                          ))),
+                                                                                ),
+                                                                                GestureDetector(
+                                                                                  onTap: () {
+                                                                                    // setState(() {
+                                                                                    //   selected_tasks =
+                                                                                    //       CustomersData[
+                                                                                    //       index]
+                                                                                    //           .id;
+                                                                                    // });
+                                                                                    // Customer_delete();
+                                                                                    // print(
+                                                                                    //     selected_tasks);
+                                                                                  },
+                                                                                  child: Container(
+                                                                                    margin: const EdgeInsets
+                                                                                        .only(
+                                                                                        right: 38,
+                                                                                        left: 38,
+                                                                                        bottom: 10),
+                                                                                    decoration: BoxDecoration(
+                                                                                        color: Color(
+                                                                                            0xfff3f3f3),
+                                                                                        borderRadius:
+                                                                                        BorderRadius
+                                                                                            .circular(
+                                                                                            10)),
+                                                                                    child: Container(
+                                                                                      alignment:
+                                                                                      Alignment.center,
+                                                                                      margin:
+                                                                                      EdgeInsets.only(
+                                                                                        top: 13,
+                                                                                        bottom: 13,
+                                                                                      ),
+                                                                                      child: const Text(
+                                                                                        'Delete',
+                                                                                        style: TextStyle(
+                                                                                            fontSize: 15,
+                                                                                            decoration:
+                                                                                            TextDecoration
+                                                                                                .none,
+                                                                                            fontWeight:
+                                                                                            FontWeight
+                                                                                                .w600,
+                                                                                            color: Color(
+                                                                                                0xffE74B3B),
+                                                                                            fontFamily:
+                                                                                            'GR'),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              );
+                                                            });
+                                                        setState(() {});
+                                                      },
                                                       child: const Icon(
                                                         Icons.more_vert,
                                                         size: 15.0,
@@ -301,8 +410,7 @@ class _TasksListState extends State<TasksList> {
                                                   tasksController
                                                       .getAllTasksModel!
                                                       .data![index]
-                                                      .priority
-                                                      .toString(),
+                                                      .contact!.name!,
                                                   textAlign: TextAlign.left,
                                                   style:
                                                       cartMobileNumberStyle(),

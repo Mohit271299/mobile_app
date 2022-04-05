@@ -306,7 +306,7 @@ class _ContactAddScreenState extends State<ContactAddScreen> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10.0),
                                         boxShadow: ContainerInnerShadow,
-                                        border: Border.all(color: Colors.black,width: 1)
+                                        // border: Border.all(color: Colors.black,width: 1)
                                     ),
                                     // margin: EdgeInsets.only(top: 0, right: 18, left: 18),
                                     height: 44.0,
@@ -365,7 +365,7 @@ class _ContactAddScreenState extends State<ContactAddScreen> {
                                                 left: 15, right: 15),
                                             buttonDecoration: BoxDecoration(
                                                 borderRadius: BorderRadius.circular(10),
-                                                color: Colors.white
+                                                color: Colors.transparent
                                             ),
                                             buttonElevation: 0,
                                             itemHeight: 40,
@@ -508,7 +508,7 @@ class _ContactAddScreenState extends State<ContactAddScreen> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10.0),
                                         boxShadow: ContainerInnerShadow,
-                                        border: Border.all(color: Colors.black,width: 1)
+                                        // border: Border.all(color: Colors.black,width: 1)
                                     ),
                                     // margin: EdgeInsets.only(top: 0, right: 18, left: 18),
                                     height: 44.0,
@@ -567,7 +567,7 @@ class _ContactAddScreenState extends State<ContactAddScreen> {
                                                 left: 15, right: 15),
                                             buttonDecoration: BoxDecoration(
                                                 borderRadius: BorderRadius.circular(10),
-                                                color: Colors.white
+                                                color: Colors.transparent
                                             ),
                                             buttonElevation: 0,
                                             itemHeight: 40,
@@ -605,7 +605,7 @@ class _ContactAddScreenState extends State<ContactAddScreen> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10.0),
                                         boxShadow: ContainerInnerShadow,
-                                        border: Border.all(color: Colors.black,width: 1)
+                                        // border: Border.all(color: Colors.black,width: 1)
                                     ),
                                     // margin: EdgeInsets.only(top: 0, right: 18, left: 18),
                                     height: 44.0,
@@ -664,7 +664,7 @@ class _ContactAddScreenState extends State<ContactAddScreen> {
                                                 left: 15, right: 15),
                                             buttonDecoration: BoxDecoration(
                                                 borderRadius: BorderRadius.circular(10),
-                                                color: Colors.white
+                                                color: Colors.transparent
                                             ),
                                             buttonElevation: 0,
                                             itemHeight: 40,
@@ -675,6 +675,7 @@ class _ContactAddScreenState extends State<ContactAddScreen> {
                                             dropdownDecoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
                                               color: Colors.white,
+
                                             ),
                                             dropdownElevation: 8,
                                             scrollbarRadius:

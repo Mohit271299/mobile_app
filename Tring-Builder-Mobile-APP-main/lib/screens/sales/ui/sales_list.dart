@@ -10,6 +10,7 @@ import 'package:tring/common/common_style.dart';
 import 'package:tring/common/common_widget.dart';
 import 'package:tring/screens/drawer/ui/drawerscreen.dart';
 import 'package:tring/screens/sales/controller/salescontroller.dart';
+import 'package:tring/screens/sales/ui/sales_edit/sales_edit_screen.dart';
 import 'package:tring/screens/sales/ui/sales_select_customer.dart';
 
 class SalesList extends StatefulWidget {
@@ -21,7 +22,6 @@ class SalesList extends StatefulWidget {
 
 //ignore: file_names
 class SalesListState extends State<SalesList> {
-
   void displayBottomSheet(BuildContext context) {
     showModalBottomSheet(
       shape: const RoundedRectangleBorder(
@@ -40,7 +40,14 @@ class SalesListState extends State<SalesList> {
   }
 
   void displaySalesActionButton(BuildContext context,
-      {required int id, required int listIndex}) {
+      {required int id,
+      required int listIndex,
+      required String contact_name,
+      required int contact_id,
+      required String contact_no,
+      required num invoice_no,
+      required String invocie_date,
+      }) {
     showModalBottomSheet(
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -50,30 +57,43 @@ class SalesListState extends State<SalesList> {
       context: context,
       builder: (BuildContext context) {
         return StatefulBuilder(
-          builder: (context, state) {
+          builder: (context, StateSetter state) {
             return Container(
               height: screenHeight * 0.24,
               child: Column(
                 children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.only(
-                        right: 38, left: 38, bottom: 20, top: 20.0),
-                    decoration: BoxDecoration(
-                        color: HexColor(CommonColor.appActiveColor),
-                        borderRadius: BorderRadius.circular(10)),
+                  GestureDetector(
+                    onTap: () {
+                      print('edit selcted');
+                      Get.to(EditSales(
+                        invoice_no: invoice_no,
+                        invoice_date: invocie_date,
+                        customer_id: contact_id,
+                        sales_id: id,
+                        contact_no: contact_no,
+                        contact_name: contact_name,
+                      ));
+                    },
                     child: Container(
-                      alignment: Alignment.center,
                       margin: const EdgeInsets.only(
-                        top: 13,
-                        bottom: 13,
-                      ),
-                      child: const Text(
-                        'Edit',
-                        style: TextStyle(
-                            fontSize: 15,
-                            decoration: TextDecoration.none,
-                            color: Colors.white,
-                            fontFamily: AppDetails.fontMedium),
+                          right: 38, left: 38, bottom: 20, top: 20.0),
+                      decoration: BoxDecoration(
+                          color: HexColor(CommonColor.appActiveColor),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(
+                          top: 13,
+                          bottom: 13,
+                        ),
+                        child: const Text(
+                          'Edit',
+                          style: TextStyle(
+                              fontSize: 15,
+                              decoration: TextDecoration.none,
+                              color: Colors.white,
+                              fontFamily: AppDetails.fontMedium),
+                        ),
                       ),
                     ),
                   ),
@@ -107,13 +127,21 @@ class SalesListState extends State<SalesList> {
       },
     );
   }
-
+  final salesController = Get.put(SalesController());
   late double screenHeight, screenWidth;
   final GlobalKey<ScaffoldState>? _globalKey = GlobalKey<ScaffoldState>();
+  @override
+  void initState() {
+    // activityController.task_typeController.text = widget.taskType_name;
+    // activityController.associated_lead_Controller.text = widget.customer_name;
+    super.initState();
+   salesController.getAllSalesFromAPI();
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    final salesController = Get.put(SalesController());
+
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
     return CommonWidget().CommonCustomerAppBar(
@@ -281,6 +309,29 @@ class SalesListState extends State<SalesList> {
                                                                   .id
                                                                   .toString(),
                                                             ),
+                                                            invocie_date: salesController.getAllSalesModel!.data![index].invoiceDate!.toIso8601String(),
+                                                            invoice_no: salesController.getAllSalesModel!.data![index].invoiceNumber!,
+                                                            contact_id: salesController
+                                                                .getAllSalesModel!
+                                                                .data![
+                                                            index]
+                                                                .contact!
+                                                                .id!,
+                                                            contact_name:
+                                                                salesController
+                                                                    .getAllSalesModel!
+                                                                    .data![
+                                                                        index]
+                                                                    .contact!
+                                                                    .name!,
+
+                                                            contact_no:
+                                                            salesController
+                                                                .getAllSalesModel!
+                                                                .data![
+                                                            index]
+                                                                .contact!
+                                                                .mobileNo!,
                                                             listIndex: index),
                                                     child: const Icon(
                                                       Icons.more_vert,

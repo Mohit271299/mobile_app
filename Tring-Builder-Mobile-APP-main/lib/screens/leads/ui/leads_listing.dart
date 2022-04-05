@@ -9,6 +9,7 @@ import '../../../common/common_color.dart';
 import '../../../common/common_style.dart';
 import '../../../common/common_widget.dart';
 import '../../drawer/ui/drawerscreen.dart';
+import 'Editleads.dart';
 import 'leads_select_customer.dart';
 
 class LeadsList extends StatefulWidget {
@@ -19,7 +20,7 @@ class LeadsList extends StatefulWidget {
 }
 
 class _LeadsListState extends State<LeadsList> {
-  void displaySalesActionButton(BuildContext context,
+  void displayLeadsActionButton(BuildContext context,
       {required int id, required int listIndex}) {
     showModalBottomSheet(
       shape: const RoundedRectangleBorder(
@@ -30,30 +31,35 @@ class _LeadsListState extends State<LeadsList> {
       context: context,
       builder: (BuildContext context) {
         return StatefulBuilder(
-          builder: (context, state) {
+          builder: (context, StateSetter setState) {
             return Container(
               height: screenHeight * 0.24,
               child: Column(
                 children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.only(
-                        right: 38, left: 38, bottom: 20, top: 20.0),
-                    decoration: BoxDecoration(
-                        color: HexColor(CommonColor.appActiveColor),
-                        borderRadius: BorderRadius.circular(10)),
+                  GestureDetector(
+                    onTap: (){
+                      Get.to(EditLeads());
+                    },
                     child: Container(
-                      alignment: Alignment.center,
                       margin: const EdgeInsets.only(
-                        top: 13,
-                        bottom: 13,
-                      ),
-                      child: const Text(
-                        'Edit',
-                        style: TextStyle(
-                            fontSize: 15,
-                            decoration: TextDecoration.none,
-                            color: Colors.white,
-                            fontFamily: AppDetails.fontMedium),
+                          right: 38, left: 38, bottom: 20, top: 20.0),
+                      decoration: BoxDecoration(
+                          color: HexColor(CommonColor.appActiveColor),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(
+                          top: 13,
+                          bottom: 13,
+                        ),
+                        child: const Text(
+                          'Edit',
+                          style: TextStyle(
+                              fontSize: 15,
+                              decoration: TextDecoration.none,
+                              color: Colors.white,
+                              fontFamily: AppDetails.fontMedium),
+                        ),
                       ),
                     ),
                   ),
@@ -87,11 +93,15 @@ class _LeadsListState extends State<LeadsList> {
       },
     );
   }
+
   void displayBottomSheet(BuildContext context) {
     showModalBottomSheet(
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0))),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30.0),
+          topRight: Radius.circular(30.0),
+        ),
+      ),
       isScrollControlled: true,
       context: context,
       builder: (BuildContext context) {
@@ -144,7 +154,6 @@ class _LeadsListState extends State<LeadsList> {
           backgroundColor: HexColor(CommonColor.appBackColor),
           body: SingleChildScrollView(
             padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 0.0),
-
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -268,7 +277,7 @@ class _LeadsListState extends State<LeadsList> {
                                                     height: 17,
                                                     child: InkWell(
                                                       onTap: () =>
-                                                          displaySalesActionButton(
+                                                          displayLeadsActionButton(
                                                               context,
                                                               id: int.parse(
                                                                 leadsController

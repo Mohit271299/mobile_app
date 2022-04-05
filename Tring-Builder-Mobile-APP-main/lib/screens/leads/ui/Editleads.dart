@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -18,24 +19,16 @@ import '../../../common/common_image.dart';
 import '../../activity/controller/ActivityController.dart';
 import '../../drawer/ui/drawerscreen.dart';
 import '../controller/LeadsController.dart';
-
-class LeadsAddScreen extends StatefulWidget {
-  String? selectCustomerName;
-  String? selectCustomerId;
-
-  LeadsAddScreen({
-    required this.selectCustomerName,
-    required this.selectCustomerId,
-  });
+import 'leads_add_screen.dart';
+class EditLeads extends StatefulWidget {
+  const EditLeads({Key? key}) : super(key: key);
 
   @override
-  LeadsAddScreenState createState() => LeadsAddScreenState();
+  _EditLeadsState createState() => _EditLeadsState();
 }
 
-class LeadsAddScreenState extends State<LeadsAddScreen> {
+class _EditLeadsState extends State<EditLeads> {
   late double screenHeight, screenWidth;
-  final activityController = Get.put(ActivityController());
-
   final leadscontroller = Get.put(LeadsController());
 
   DateTime? pickedDate;
@@ -156,17 +149,17 @@ class LeadsAddScreenState extends State<LeadsAddScreen> {
   @override
   void initState() {
     super.initState();
-    leadscontroller.customerController.text =
-        widget.selectCustomerName.toString();
-    leadscontroller.selectCustomerId.value = widget.selectCustomerId.toString();
+    // leadscontroller.customerController.text =
+    //     widget.selectCustomerName.toString();
+    // leadscontroller.selectCustomerId.value = widget.selectCustomerId.toString();
   }
 
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(
-        '1-1-1-1-1- Inside the Select Customer Details ${widget.selectCustomerId
-            .toString()} == ${widget.selectCustomerName.toString()}');
+    // debugPrint(
+    //     '1-1-1-1-1- Inside the Select Customer Details ${widget.selectCustomerId
+    //         .toString()} == ${widget.selectCustomerName.toString()}');
     screenHeight = MediaQuery
         .of(context)
         .size
@@ -190,16 +183,11 @@ class LeadsAddScreenState extends State<LeadsAddScreen> {
                 context: context,
                 buttonText: Texts.Save,
                 onPressed: () {
-                  // activityController.storeActivity(context: context,
-                  //     activityType: widget.taskType_name,
-                  //     activityTypeId: widget.taskType_id,
-                  //     associatedName: widget.customer_name,
-                  //     associatedLeadId: widget.customer_id);
-                  // contactdetailsController.storeContacts(context: context);
-                  // showLoader(context);
-                  leadscontroller.storeLeads(context: context,
-                      contactID: widget.selectCustomerId!,
-                      contactName: widget.selectCustomerName!);
+                  //
+                  // leadscontroller.storeLeads(context: context,
+                  //     contactID: widget.selectCustomerId!,
+                  //     contactName: widget.selectCustomerName!);
+                  //
                   // salesDetailsController.billSubmitValidation(
                   //     invoideDate: showInvoiceDate.toString(),
                   //     inVoiceNumber: widget.estimateNo.toString(),
@@ -714,11 +702,4 @@ class LeadsAddScreenState extends State<LeadsAddScreen> {
     debugPrint(
         'Selected Flat Index ${leadscontroller.selectedFlats.toString()}');
   }
-}
-
-class source_promotion {
-  const source_promotion(this.name, this.value);
-
-  final String name;
-  final String value;
 }

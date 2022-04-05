@@ -19,6 +19,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+import '../model/getIdEstimateModel.dart';
+
 class EstimateShowCustomeController extends GetxController {
   RxDouble getEstimateTotal = 0.0.obs;
   RxBool isTrue = true.obs;
@@ -1360,6 +1362,82 @@ class EstimateShowCustomeController extends GetxController {
     }
     // debugPrint('Get Sales Token ${tokens.toString()}');
   }
+
+  //getestimatebyId details
+  RxBool isIdestimateLoading = false.obs;
+  GetIdEstimateModel? getIdEstimateModel;
+  var getIdEstimateModelList = GetIdEstimateModel().obs;
+
+  Future<dynamic> GetSalesById({
+    required BuildContext context,
+    required int estimateId,
+  }) async {
+    isIdestimateLoading(true);
+    String url = (URLConstants.base_url + URLConstants.storeEstimate + '/$estimateId');
+    String msg = '';
+    String tokens = CommonService().getStoreValue(keys: 'token').toString();
+    // debugPrint('Get Sales Token ${tokens.toString()}');
+    // try { } catch (e) {
+    //   print('1-1-1-1 Get tasksId ${e.toString()}');
+    // }
+    http.Response response = await http.get(Uri.parse(url), headers: {
+      'Authorization': 'Bearer ${tokens.toString()}',
+    });
+
+    print('Response request: ${response.request}');
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+    var data = convert.jsonDecode(response.body);
+
+    if (response == null) {
+      return null;
+    } else if (response.statusCode == 200 || response.statusCode == 201) {
+      final status = data["success"];
+      getIdEstimateModel = GetIdEstimateModel.fromJson(data);
+      getIdEstimateModelList(getIdEstimateModel);
+
+      if (status == true) {
+        isIdestimateLoading(false);
+
+        for(var i=0; i<= getIdEstimateModelList.value.data!.estimateItems!.length; i++ ){
+          flatNoController[i].text
+          = getIdEstimateModelList.value.data!.estimateItems![i].flat!.blockNumber!;
+        }
+        // subjectController.text =
+        //     getidtaskModelList.value.data!.subject.toString();
+
+        // assignToController.text =
+        //     getidtaskModelList.value.data!.assignTo.toString();
+        // associated_lead_Controller.text = customer_name!;
+        // addressController.text =
+        //     getidtaskModelList.value.data!.address.toString();
+        // fromdateController.text =
+        //     getidtaskModelList.value.data!.fromDate!.toString();
+        // todateController.text =
+        //     getidtaskModelList.value.data!.toDate.toString();
+        // reminderdateController.text =
+        //     getidtaskModelList.value.data!.reminder.toString();
+        // priorityController.text =
+        //     getidtaskModelList.value.data!.priority.toString();
+        // descriptionController.text =
+        //     getidtaskModelList.value.data!.description.toString();
+
+        // CommonWidget().showToaster(msg: msg.toString());
+        return getIdEstimateModel;
+      } else {
+        CommonWidget().showToaster(msg: msg.toString());
+        return null;
+      }
+    } else if (response.statusCode == 422) {
+      CommonWidget().showToaster(msg: msg.toString());
+    } else if (response.statusCode == 401) {
+      CommonService().unAuthorizedUser();
+    } else {
+      CommonWidget().showToaster(msg: msg.toString());
+    }
+
+  }
+
 
   cleanAll() {
     

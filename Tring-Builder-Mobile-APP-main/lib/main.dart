@@ -11,11 +11,21 @@ import 'package:tring/service/commonservice.dart';
 Future<void> main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+      // options: FirebaseOptions(
+      //       apiKey: "AIzaSyCmOC4dUAznvebLDs7KS8Ao95vQD_4cbZc",
+      //       authDomain: "webtesting-b062b.firebaseapp.com",
+      //       projectId: "webtesting-b062b",
+      //       storageBucket: "webtesting-b062b.appspot.com",
+      //       messagingSenderId: "461157598549",
+      //       appId: "1:461157598549:web:ef49da3553106782cddbdc",
+      //       measurementId: "G-HBQZTRHTVF"
+      //   )
+  );
   runApp(MyApp());
 }
-
 class MyApp extends StatefulWidget {
+
   @override
   State<MyApp> createState() => _MyAppState();
 }

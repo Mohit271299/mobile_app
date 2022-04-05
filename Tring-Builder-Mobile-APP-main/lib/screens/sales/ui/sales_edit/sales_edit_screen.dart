@@ -18,23 +18,27 @@ import 'package:tring/screens/sales/ui/selectFlat/salesSelectFloor.dart';
 import 'package:tring/screens/sales/ui/selectFlat/salesSelectNumber.dart';
 import 'package:tring/screens/sales/ui/selectFlat/salesSelectTown.dart';
 
-class SalesShowCustomerDetails extends StatefulWidget {
-  String name;
-  String mobileNumber;
-  String estimateNo;
+class EditSales extends StatefulWidget {
+  final int sales_id;
+  final int customer_id;
+  final String contact_name;
+  final String contact_no;
+  final num invoice_no;
+  final String invoice_date;
 
-  SalesShowCustomerDetails(
-      {required this.name,
-      required this.mobileNumber,
-      required this.estimateNo});
+  const EditSales(
+      {Key? key,
+      required this.sales_id,
+      required this.contact_name,
+      required this.contact_no,
+        required this.customer_id, required this.invoice_no, required this.invoice_date})
+      : super(key: key);
 
   @override
-  SalesShowCustomerDetailsState createState() =>
-      SalesShowCustomerDetailsState();
+  State<EditSales> createState() => _EditSalesState();
 }
 
-class SalesShowCustomerDetailsState extends State<SalesShowCustomerDetails> {
-
+class _EditSalesState extends State<EditSales> {
   selectTowerBottomSheet(BuildContext context) {
     showModalBottomSheet(
       shape: const RoundedRectangleBorder(
@@ -115,7 +119,7 @@ class SalesShowCustomerDetailsState extends State<SalesShowCustomerDetails> {
       salesDetailsController.saleseEstimateDateDialogController.text =
           showInvoiceDate.toString();
       salesDetailsController.salesEstimateNoDialogController.text =
-          widget.estimateNo.toString();
+          "estimateNo.toString()";
     });
     CommonWidget().showalertDialog(
       context: context,
@@ -135,7 +139,7 @@ class SalesShowCustomerDetailsState extends State<SalesShowCustomerDetails> {
               validator: (value) {},
               onChanged: (value) {
                 setState(() {
-                  widget.estimateNo = value.toString();
+                  // widget.estimateNo = value.toString();
                 });
               },
               textInputType: TextInputType.number,
@@ -164,8 +168,9 @@ class SalesShowCustomerDetailsState extends State<SalesShowCustomerDetails> {
     );
   }
 
-  setFlatNumber({required String selectFlat,required int selectFlatId}) {
-    debugPrint('Inside the Set Flat Number ${selectFlat.toString()} = ${selectFlatId.toString()}');
+  setFlatNumber({required String selectFlat, required int selectFlatId}) {
+    debugPrint(
+        'Inside the Set Flat Number ${selectFlat.toString()} = ${selectFlatId.toString()}');
     salesDetailsController.flatNoController.text = selectFlat.toString();
     salesDetailsController.selectFlatId.value = selectFlatId;
   }
@@ -196,7 +201,17 @@ class SalesShowCustomerDetailsState extends State<SalesShowCustomerDetails> {
       });
     }
   }
+
   int selectFlatId = 0;
+
+  @override
+  void initState() {
+    // activityController.task_typeController.text = widget.taskType_name;
+    // activityController.associated_lead_Controller.text = widget.customer_name;
+    super.initState();
+    salesDetailsController.GetSalesById(
+        salesId: widget.sales_id, context: context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -255,16 +270,15 @@ class SalesShowCustomerDetailsState extends State<SalesShowCustomerDetails> {
                   buttonText: Texts.Save,
                   onPressed: () {
                     showLoader(context);
-                    salesDetailsController.billSubmitValidation(
-                      invoideDate: showInvoiceDate.toString(),
-                      inVoiceNumber: widget.estimateNo.toString(),
-                      context: context
-                    ).then((value){
-                      hideLoader(context);
-                      if(value != null){
-                        debugPrint('2-2-2-2-2-2 Values of Sales ${value.toString()}');
-                      }
-                    });
+                    salesDetailsController
+                        .storeSalesbyID(
+                        invoideDate: widget.invoice_date,
+                      inVoiceNumber: widget.invoice_no,
+                      context: context,
+                      salesId: widget.sales_id,
+                        contact_id: widget.customer_id
+
+                    );
                   },
                 ),
               ),
@@ -296,7 +310,7 @@ class SalesShowCustomerDetailsState extends State<SalesShowCustomerDetails> {
                               padding: const EdgeInsets.only(
                                   left: 15.0, top: 13.0, bottom: 4.0),
                               child: Text(
-                                widget.name.toString(),
+                                widget.contact_name,
                                 textAlign: TextAlign.left,
                                 style: cartNameStyle(),
                               ),
@@ -309,7 +323,7 @@ class SalesShowCustomerDetailsState extends State<SalesShowCustomerDetails> {
                                 padding: const EdgeInsets.only(
                                     right: 15.0, top: 13.0, bottom: 4.0),
                                 child: Text(
-                                  'Estimate No. ${widget.estimateNo.toString()}',
+                                  'Estimate No. ${"estimateNo.toString()"}',
                                   textAlign: TextAlign.right,
                                   style: estimateStyle(),
                                 ),
@@ -326,7 +340,7 @@ class SalesShowCustomerDetailsState extends State<SalesShowCustomerDetails> {
                               padding: const EdgeInsets.only(
                                   left: 15.0, bottom: 13.0),
                               child: Text(
-                                widget.mobileNumber.toString(),
+                                widget.contact_no,
                                 textAlign: TextAlign.left,
                                 style: cartMobileNumberStyle(),
                               ),

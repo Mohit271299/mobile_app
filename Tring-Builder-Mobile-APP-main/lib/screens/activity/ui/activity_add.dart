@@ -36,9 +36,6 @@ class _AddActivityState extends State<AddActivity> {
   late double screenHeight, screenWidth;
   final activityController = Get.put(ActivityController());
 
-  ProductController productControllers =
-  Get.put(ProductController(), tag: ProductController().toString());
-
   DateTime? pickedDate;
 
   var list_hour = Iterable<int>.generate(100).toList();
@@ -284,8 +281,8 @@ class _AddActivityState extends State<AddActivity> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
                                     boxShadow: ContainerInnerShadow,
-                                    border: Border.all(
-                                        color: Colors.black, width: 1)
+                                    // border: Border.all(
+                                    //     color: Colors.black, width: 1)
                                 ),
                                 // margin: EdgeInsets.only(top: 0, right: 18, left: 18),
                                 height: 44.0,
@@ -352,7 +349,7 @@ class _AddActivityState extends State<AddActivity> {
                                         buttonDecoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(
                                                 10),
-                                            color: Colors.white
+                                            color: Colors.transparent
                                         ),
                                         buttonElevation: 0,
                                         itemHeight: 40,
@@ -386,8 +383,8 @@ class _AddActivityState extends State<AddActivity> {
                                     borderRadius: BorderRadius.circular(10.0),
                                     boxShadow: ContainerInnerShadow,
                                     // color: Colors.red
-                                    border: Border.all(
-                                        color: Colors.black, width: 1)
+                                    // border: Border.all(
+                                    //     color: Colors.black, width: 1)
                                 ),
                                 // margin: EdgeInsets.only(top: 0, right: 18, left: 18),
                                 height: 44.0,
@@ -454,7 +451,7 @@ class _AddActivityState extends State<AddActivity> {
                                         buttonDecoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(
                                                 10),
-                                            color: Colors.white
+                                            color: Colors.transparent
                                         ),
                                         buttonElevation: 0,
                                         itemHeight: 40,

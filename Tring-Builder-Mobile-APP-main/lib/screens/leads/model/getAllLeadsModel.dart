@@ -39,7 +39,7 @@ class Data_leads {
   String? salesPerson;
   String? sourceOfPromotion;
   String? sourceCampaign;
-  Null? notes;
+  String? notes;
   String? propertyName;
   int? contactId;
   Contact? contact;

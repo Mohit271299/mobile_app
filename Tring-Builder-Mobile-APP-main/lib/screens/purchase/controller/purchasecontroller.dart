@@ -453,6 +453,8 @@ class PusrhcaseController extends GetxController {
     }
   }
 
+
+
   // get Customer List
   Future<dynamic> getAllCustomerFromAPI() async {
     isCustomerLoading(true);

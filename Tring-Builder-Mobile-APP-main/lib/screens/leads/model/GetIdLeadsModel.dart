@@ -1,81 +1,85 @@
-class GetAllTasksModel {
+class GetIdLeadsModel {
   bool? success;
-  List<Data_tasks>? data;
+  Data? data;
 
-  GetAllTasksModel({this.success, this.data});
+  GetIdLeadsModel({this.success, this.data});
 
-  GetAllTasksModel.fromJson(Map<String, dynamic> json) {
+  GetIdLeadsModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    if (json['data'] != null) {
-      data = <Data_tasks>[];
-      json['data'].forEach((v) {
-        data!.add(new Data_tasks.fromJson(v));
-      });
-    }
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['success'] = this.success;
     if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+      data['data'] = this.data!.toJson();
     }
     return data;
   }
 }
 
-class Data_tasks {
+class Data {
   int? id;
-  int? typeId;
-  String? subject;
-  int? ownerId;
-  String? assignTo;
+  int? createdBy;
+  Null? updatedBy;
+  String? createdAt;
+  String? updatedAt;
+  String? leadDate;
+  String? followUpDate;
+  String? siteVisitDate;
+  Null? leadOwner;
+  String? leadStage;
+  Null? leadSource;
+  String? salesPerson;
+  String? sourceOfPromotion;
+  String? sourceCampaign;
+  String? notes;
+  Null? propertyName;
   int? contactId;
-  String? address;
-  String? fromDate;
-  String? toDate;
-  String? reminder;
-  String? priority;
-  String? description;
-  int? addedBy;
-  int? updatedBy;
-  Type? type;
+  int? projectId;
   Contact? contact;
 
-  Data_tasks(
+  Data(
       {this.id,
-        this.typeId,
-        this.subject,
-        this.ownerId,
-        this.assignTo,
-        this.contactId,
-        this.address,
-        this.fromDate,
-        this.toDate,
-        this.reminder,
-        this.priority,
-        this.description,
-        this.addedBy,
+        this.createdBy,
         this.updatedBy,
-        this.type,
+        this.createdAt,
+        this.updatedAt,
+        this.leadDate,
+        this.followUpDate,
+        this.siteVisitDate,
+        this.leadOwner,
+        this.leadStage,
+        this.leadSource,
+        this.salesPerson,
+        this.sourceOfPromotion,
+        this.sourceCampaign,
+        this.notes,
+        this.propertyName,
+        this.contactId,
+        this.projectId,
         this.contact});
 
-  Data_tasks.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    typeId = json['typeId'];
-    subject = json['subject'];
-    ownerId = json['ownerId'];
-    assignTo = json['assignTo'];
+    createdBy = json['created_by'];
+    updatedBy = json['updated_by'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    leadDate = json['leadDate'];
+    followUpDate = json['followUpDate'];
+    siteVisitDate = json['siteVisitDate'];
+    leadOwner = json['leadOwner'];
+    leadStage = json['leadStage'];
+    leadSource = json['leadSource'];
+    salesPerson = json['salesPerson'];
+    sourceOfPromotion = json['sourceOfPromotion'];
+    sourceCampaign = json['sourceCampaign'];
+    notes = json['notes'];
+    propertyName = json['propertyName'];
     contactId = json['contactId'];
-    address = json['address'];
-    fromDate = json['fromDate'];
-    toDate = json['toDate'];
-    reminder = json['reminder'];
-    priority = json['priority'];
-    description = json['description'];
-    addedBy = json['addedBy'];
-    updatedBy = json['updatedBy'];
-    type = json['type'] != null ? new Type.fromJson(json['type']) : null;
+    projectId = json['projectId'];
     contact =
     json['contact'] != null ? new Contact.fromJson(json['contact']) : null;
   }
@@ -83,44 +87,26 @@ class Data_tasks {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['typeId'] = this.typeId;
-    data['subject'] = this.subject;
-    data['ownerId'] = this.ownerId;
-    data['assignTo'] = this.assignTo;
+    data['created_by'] = this.createdBy;
+    data['updated_by'] = this.updatedBy;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['leadDate'] = this.leadDate;
+    data['followUpDate'] = this.followUpDate;
+    data['siteVisitDate'] = this.siteVisitDate;
+    data['leadOwner'] = this.leadOwner;
+    data['leadStage'] = this.leadStage;
+    data['leadSource'] = this.leadSource;
+    data['salesPerson'] = this.salesPerson;
+    data['sourceOfPromotion'] = this.sourceOfPromotion;
+    data['sourceCampaign'] = this.sourceCampaign;
+    data['notes'] = this.notes;
+    data['propertyName'] = this.propertyName;
     data['contactId'] = this.contactId;
-    data['address'] = this.address;
-    data['fromDate'] = this.fromDate;
-    data['toDate'] = this.toDate;
-    data['reminder'] = this.reminder;
-    data['priority'] = this.priority;
-    data['description'] = this.description;
-    data['addedBy'] = this.addedBy;
-    data['updatedBy'] = this.updatedBy;
-    if (this.type != null) {
-      data['type'] = this.type!.toJson();
-    }
+    data['projectId'] = this.projectId;
     if (this.contact != null) {
       data['contact'] = this.contact!.toJson();
     }
-    return data;
-  }
-}
-
-class Type {
-  int? id;
-  String? type;
-
-  Type({this.id, this.type});
-
-  Type.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    type = json['type'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['type'] = this.type;
     return data;
   }
 }
@@ -134,13 +120,13 @@ class Contact {
   String? businessName;
   String? businessType;
   String? alternateMobileNo;
-  Null? phoneNo;
+  String? phoneNo;
   String? contactOn;
   Null? fax;
-  String? website;
+  Null? website;
   String? birthDate;
   String? marriageDate;
-  Null? socialMediaAccountLinks;
+  String? socialMediaAccountLinks;
   bool? sameAddress;
   String? sourceOfPromotion;
   String? sourceCampaign;
@@ -149,6 +135,7 @@ class Contact {
   Null? updatedBy;
   String? createdAt;
   String? updatedAt;
+  int? projectId;
 
   Contact(
       {this.id,
@@ -173,7 +160,8 @@ class Contact {
         this.createdBy,
         this.updatedBy,
         this.createdAt,
-        this.updatedAt});
+        this.updatedAt,
+        this.projectId});
 
   Contact.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -199,6 +187,7 @@ class Contact {
     updatedBy = json['updated_by'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    projectId = json['projectId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -226,6 +215,7 @@ class Contact {
     data['updated_by'] = this.updatedBy;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    data['projectId'] = this.projectId;
     return data;
   }
 }

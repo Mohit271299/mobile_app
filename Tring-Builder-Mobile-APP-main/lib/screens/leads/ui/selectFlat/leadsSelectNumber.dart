@@ -137,16 +137,17 @@ class _LeadsSelectNumberState extends State<LeadsSelectNumber> {
                                 LeadsAddScreenState().setFlatNumber(
                                   selectFlat: salesController
                                       .getSelectFlat!.data![index].blockNumber
-                                      .toString(), selectFlatId: salesController
-                                    .getSelectFlat!.data![index].id!,
+                                      .toString(),
+                                  selectFlatId: salesController
+                                      .getSelectFlat!.data![index].id!,
                                 );
                                 salesController.selectFlatId.value =
                                     salesController
                                         .getSelectFlat!.data![index].id!;
-                                salesController.flatNoController.text =
-                                    salesController
-                                        .getSelectFlat!.data![index].blockNumber
-                                        .toString();
+                                // salesController.flatNoController.text =
+                                //     salesController
+                                //         .getSelectFlat!.data![index].blockNumber
+                                //         .toString();
 
                                 Navigator.pop(context);
                               },

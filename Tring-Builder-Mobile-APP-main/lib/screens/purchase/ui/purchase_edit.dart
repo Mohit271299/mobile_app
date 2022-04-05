@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -14,29 +13,19 @@ import 'package:tring/screens/drawer/ui/drawerscreen.dart';
 import 'package:tring/screens/product/controller/Productcontroller.dart';
 import 'package:tring/screens/purchase/controller/purchasecontroller.dart';
 
-class PurchaseShowCustomerDetails extends StatefulWidget {
-  String customerName;
-  String customerMobileNo;
-  String customerPurchaseNo;
-  String customerId;
 
-  PurchaseShowCustomerDetails({
-    required this.customerName,
-    required this.customerId,
-    required this.customerMobileNo,
-    required this.customerPurchaseNo,
-  });
+class EditPurchase extends StatefulWidget {
+  const EditPurchase({Key? key}) : super(key: key);
 
   @override
-  PurchaseShowCustomerDetailsState createState() =>
-      PurchaseShowCustomerDetailsState();
+  State<EditPurchase> createState() => _EditPurchaseState();
 }
 
-class PurchaseShowCustomerDetailsState extends State<PurchaseShowCustomerDetails> {
+class _EditPurchaseState extends State<EditPurchase> {
   PusrhcaseController pusrhcaseController =
-      Get.put(PusrhcaseController(), tag: PusrhcaseController().toString());
+  Get.put(PusrhcaseController(), tag: PusrhcaseController().toString());
   ProductController productController =
-      Get.put(ProductController(), tag: ProductController().toString());
+  Get.put(ProductController(), tag: ProductController().toString());
 
   @override
   void initState() {
@@ -45,13 +34,13 @@ class PurchaseShowCustomerDetailsState extends State<PurchaseShowCustomerDetails
   }
 
   showSalesDetailsDialog(
-    BuildContext context,
-  ) {
+      BuildContext context,
+      ) {
     setState(() {
       pusrhcaseController.purchaseDateDialogController.text =
           showInvoiceDate.toString();
       pusrhcaseController.purchaseDateDialogController.text =
-          widget.customerPurchaseNo.toString();
+          "widget.customerPurchaseNo";
     });
     CommonWidget().showalertDialog(
       context: context,
@@ -99,7 +88,7 @@ class PurchaseShowCustomerDetailsState extends State<PurchaseShowCustomerDetails
 
   DateTime selectedDate = DateTime.now();
   String showInvoiceDate =
-      DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
+  DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
 
   selectSalesInvoiceDate(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
@@ -119,7 +108,7 @@ class PurchaseShowCustomerDetailsState extends State<PurchaseShowCustomerDetails
 
   DateTime selectedDueDate = DateTime.now();
   String showDueDate =
-      DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
+  DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
 
   selectSalesDuDate(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
@@ -153,7 +142,7 @@ class PurchaseShowCustomerDetailsState extends State<PurchaseShowCustomerDetails
           builder: (context, state) {
             return Container(
               padding:
-                  const EdgeInsets.only(top: 20.0, left: 25.0, right: 25.0),
+              const EdgeInsets.only(top: 20.0, left: 25.0, right: 25.0),
               child: Column(
                 children: <Widget>[
                   Row(
@@ -191,119 +180,119 @@ class PurchaseShowCustomerDetailsState extends State<PurchaseShowCustomerDetails
                     height: 21.0,
                   ),
                   Obx(
-                    () => (productController.isProductLoading.value == false &&
-                            productController.getAllProductModel
-                                .toString()
-                                .isNotEmpty &&
-                            productController.getAllProductModel.toString() !=
-                                'null' &&
-                            int.parse(productController
-                                    .getAllProductModel!.data!.length
-                                    .toString()) !=
-                                0 &&
-                            int.parse(productController
-                                    .getAllProductModel!.data!.length
-                                    .toString()) >=
-                                0)
+                        () => (productController.isProductLoading.value == false &&
+                        productController.getAllProductModel
+                            .toString()
+                            .isNotEmpty &&
+                        productController.getAllProductModel.toString() !=
+                            'null' &&
+                        int.parse(productController
+                            .getAllProductModel!.data!.length
+                            .toString()) !=
+                            0 &&
+                        int.parse(productController
+                            .getAllProductModel!.data!.length
+                            .toString()) >=
+                            0)
                         ? Flexible(
-                            child:
-                                CommonWidget().ListviewListingBuilderWithScroll(
-                              context: context,
-                              getItemCount: productController
-                                  .getAllProductModel!.data!.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return InkWell(
-                                  highlightColor:
-                                      HexColor(CommonColor.appBackColor),
-                                  splashColor:
-                                      HexColor(CommonColor.appBackColor),
-                                  focusColor:
-                                      HexColor(CommonColor.appBackColor),
-                                  hoverColor:
-                                      HexColor(CommonColor.appBackColor),
-                                  onTap: () {
-                                  debugPrint('0000000000----- Inside the index ${index.toString()}');
-                                    pusrhcaseController
-                                            .selectProductNameId[selectedProductIndex] =
-                                        productController
-                                            .getAllProductModel!.data![index].id
-                                            .toString();
-                                    pusrhcaseController
-                                            .selectPurchaseProductNameController[
-                                    selectedProductIndex]
-                                            .text =
-                                        productController.getAllProductModel!
-                                            .data![index].name
-                                            .toString();
-                                    Navigator.pop(context);
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    margin: const EdgeInsets.only(bottom: 15.0),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(
-                                          color: HexColor(
-                                            CommonColor.dialogBorderColor,
-                                          ),
-                                          width: 2.0),
-                                      borderRadius: BorderRadius.circular(10.0),
+                      child:
+                      CommonWidget().ListviewListingBuilderWithScroll(
+                        context: context,
+                        getItemCount: productController
+                            .getAllProductModel!.data!.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return InkWell(
+                            highlightColor:
+                            HexColor(CommonColor.appBackColor),
+                            splashColor:
+                            HexColor(CommonColor.appBackColor),
+                            focusColor:
+                            HexColor(CommonColor.appBackColor),
+                            hoverColor:
+                            HexColor(CommonColor.appBackColor),
+                            onTap: () {
+                              debugPrint('0000000000----- Inside the index ${index.toString()}');
+                              pusrhcaseController
+                                  .selectProductNameId[selectedProductIndex] =
+                                  productController
+                                      .getAllProductModel!.data![index].id
+                                      .toString();
+                              pusrhcaseController
+                                  .selectPurchaseProductNameController[
+                              selectedProductIndex]
+                                  .text =
+                                  productController.getAllProductModel!
+                                      .data![index].name
+                                      .toString();
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              margin: const EdgeInsets.only(bottom: 15.0),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                    color: HexColor(
+                                      CommonColor.dialogBorderColor,
                                     ),
-                                    width: screenWidth,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Flexible(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 18.0,
-                                                top: 18.0,
-                                                bottom: 18.0),
-                                            child: Text(
-                                              productController
-                                                  .getAllProductModel!
-                                                  .data![index]
-                                                  .name
-                                                  .toString(),
-                                              maxLines: 2,
-                                              style: cartNameStyle(),
-                                            ),
-                                          ),
-                                        ),
-                                        // Flexible(
-                                        //   child: Padding(
-                                        //     padding: const EdgeInsets.only(
-                                        //         top: 18.0,
-                                        //         bottom: 18.0,
-                                        //         right: 18.0),
-                                        //     child: Text(
-                                        //       productController
-                                        //           .getAllProductModel!
-                                        //           .data![index]
-                                        //           .mobileNo
-                                        //           .toString(),
-                                        //       style: cartMobileNumberStyle(),
-                                        //     ),
-                                        //   ),
-                                        // ),
-                                      ],
+                                    width: 2.0),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              width: screenWidth,
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Flexible(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 18.0,
+                                          top: 18.0,
+                                          bottom: 18.0),
+                                      child: Text(
+                                        productController
+                                            .getAllProductModel!
+                                            .data![index]
+                                            .name
+                                            .toString(),
+                                        maxLines: 2,
+                                        style: cartNameStyle(),
+                                      ),
                                     ),
                                   ),
-                                );
-                              },
+                                  // Flexible(
+                                  //   child: Padding(
+                                  //     padding: const EdgeInsets.only(
+                                  //         top: 18.0,
+                                  //         bottom: 18.0,
+                                  //         right: 18.0),
+                                  //     child: Text(
+                                  //       productController
+                                  //           .getAllProductModel!
+                                  //           .data![index]
+                                  //           .mobileNo
+                                  //           .toString(),
+                                  //       style: cartMobileNumberStyle(),
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                ],
+                              ),
                             ),
-                          )
+                          );
+                        },
+                      ),
+                    )
                         : CommonWidget().ListviewListing(
-                            context: context,
-                            getItemCount: 16,
-                            getWidets: CommonWidget().showShimmer(
-                              shimmerHeight: 50,
-                              leftM: 0.0,
-                              rightM: 0.0,
-                              bottomM: 20.0,
-                            ),
-                          ),
+                      context: context,
+                      getItemCount: 16,
+                      getWidets: CommonWidget().showShimmer(
+                        shimmerHeight: 50,
+                        leftM: 0.0,
+                        rightM: 0.0,
+                        bottomM: 20.0,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -330,7 +319,7 @@ class PurchaseShowCustomerDetailsState extends State<PurchaseShowCustomerDetails
             height: 170,
             width: screenWidth,
             margin:
-                const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+            const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
             child: Column(
               children: <Widget>[
                 CommonWidget().listingCardDesign(
@@ -392,11 +381,11 @@ class PurchaseShowCustomerDetailsState extends State<PurchaseShowCustomerDetails
                           showLoader(context);
                           pusrhcaseController
                               .storePurchase(
-                                  contactId: widget.customerId,
-                                  invoiceDates: showInvoiceDate.toString(),
-                                  dueDates: showDueDate.toString())
+                              contactId: "widget.customerId",
+                              invoiceDates: showInvoiceDate.toString(),
+                              dueDates: showDueDate.toString())
                               .then(
-                            (value) {
+                                (value) {
                               hideLoader(context);
                               if (value != null) {
                                 if (value != 'fail') {
@@ -436,7 +425,7 @@ class PurchaseShowCustomerDetailsState extends State<PurchaseShowCustomerDetails
                             padding: const EdgeInsets.only(
                                 left: 15.0, top: 13.0, bottom: 4.0),
                             child: Text(
-                              widget.customerName.toString(),
+                              "widget.customerName",
                               textAlign: TextAlign.left,
                               style: cartNameStyle(),
                             ),
@@ -449,7 +438,7 @@ class PurchaseShowCustomerDetailsState extends State<PurchaseShowCustomerDetails
                               padding: const EdgeInsets.only(
                                   right: 15.0, top: 13.0, bottom: 4.0),
                               child: Text(
-                                'Purchase No. ${widget.customerPurchaseNo.toString()}',
+                                'Purchase No. widget.customerPurchaseNo',
                                 textAlign: TextAlign.right,
                                 style: estimateStyle(),
                               ),
@@ -464,9 +453,9 @@ class PurchaseShowCustomerDetailsState extends State<PurchaseShowCustomerDetails
                         Flexible(
                           child: Padding(
                             padding:
-                                const EdgeInsets.only(left: 15.0, bottom: 13.0),
+                            const EdgeInsets.only(left: 15.0, bottom: 13.0),
                             child: Text(
-                              widget.customerMobileNo.toString(),
+                              "widget.customerMobileNo",
                               textAlign: TextAlign.left,
                               style: cartMobileNumberStyle(),
                             ),
@@ -494,7 +483,7 @@ class PurchaseShowCustomerDetailsState extends State<PurchaseShowCustomerDetails
                         onTap: () => selectSalesDuDate(context),
                         child: Padding(
                           padding:
-                              const EdgeInsets.only(right: 15.0, bottom: 0.0),
+                          const EdgeInsets.only(right: 15.0, bottom: 0.0),
                           child: Text(
                             'Dur Date. ${showDueDate.toString()}',
                             textAlign: TextAlign.right,
@@ -509,7 +498,7 @@ class PurchaseShowCustomerDetailsState extends State<PurchaseShowCustomerDetails
                         validator: (String? value) {},
                         textInputType: TextInputType.number,
                         controller:
-                            pusrhcaseController.purchaseBillNoController,
+                        pusrhcaseController.purchaseBillNoController,
                         hintText: Texts.productBillNo,
                         textInputAction: TextInputAction.next,
                         labelText: Texts.productBillNo,
@@ -521,7 +510,7 @@ class PurchaseShowCustomerDetailsState extends State<PurchaseShowCustomerDetails
                         validator: (String? value) {},
                         textInputType: TextInputType.text,
                         controller:
-                            pusrhcaseController.purchaseDescriptionController,
+                        pusrhcaseController.purchaseDescriptionController,
                         hintText: Texts.productDescription,
                         textInputAction: TextInputAction.done,
                         maxLines: 3,
@@ -532,7 +521,7 @@ class PurchaseShowCustomerDetailsState extends State<PurchaseShowCustomerDetails
                 ),
               ),
               Obx(
-                () => CommonWidget().ListviewListingBuilder(
+                    () => CommonWidget().ListviewListingBuilder(
                   context: context,
                   bottomSpace: 10,
                   getItemCount: pusrhcaseController.lengthOfEstimate.value,
@@ -553,24 +542,24 @@ class PurchaseShowCustomerDetailsState extends State<PurchaseShowCustomerDetails
                                   style: estimateLabelStyle(),
                                 ),
                                 (pusrhcaseController.lengthOfEstimate.value !=
-                                        1)
+                                    1)
                                     ? Container(
-                                        height: 25,
-                                        width: 25,
-                                        child: InkWell(
-                                          onTap: () {
-                                            pusrhcaseController
-                                                .removeEstimateForm(
-                                                    removeFromIndex: index);
-                                          },
-                                          child: SizedBox(
-                                            height: 18.0,
-                                            width: 18.0,
-                                            child: Image.asset(
-                                                CommonImage.close_icon),
-                                          ),
-                                        ),
-                                      )
+                                  height: 25,
+                                  width: 25,
+                                  child: InkWell(
+                                    onTap: () {
+                                      pusrhcaseController
+                                          .removeEstimateForm(
+                                          removeFromIndex: index);
+                                    },
+                                    child: SizedBox(
+                                      height: 18.0,
+                                      width: 18.0,
+                                      child: Image.asset(
+                                          CommonImage.close_icon),
+                                    ),
+                                  ),
+                                )
                                     : Container(),
                               ],
                             ),
@@ -585,8 +574,8 @@ class PurchaseShowCustomerDetailsState extends State<PurchaseShowCustomerDetails
                                     labelText: Texts.productName,
                                     textInputType: TextInputType.text,
                                     controller: pusrhcaseController
-                                            .selectPurchaseProductNameController[
-                                        index],
+                                        .selectPurchaseProductNameController[
+                                    index],
                                     hintText: Texts.productName,
                                     textInputAction: TextInputAction.next,
                                     onTap: () {
@@ -808,8 +797,8 @@ class PurchaseShowCustomerDetailsState extends State<PurchaseShowCustomerDetails
                                     labelText: Texts.taxableValue,
                                     textInputType: TextInputType.number,
                                     controller: pusrhcaseController
-                                            .purchasesTaxableValueControllers[
-                                        index],
+                                        .purchasesTaxableValueControllers[
+                                    index],
                                     hintText: Texts.taxableValue,
                                     textInputAction: TextInputAction.next,
                                     onTap: () {},

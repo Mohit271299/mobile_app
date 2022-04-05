@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -10,7 +9,6 @@ import 'package:tring/common/common_style.dart';
 import 'package:tring/common/common_textformfield.dart';
 import 'package:tring/common/common_widget.dart';
 import 'package:tring/screens/purchase/controller/purchaseController.dart';
-import 'package:tring/screens/sales/controller/salescontroller.dart';
 
 class SelectProduct extends StatefulWidget {
   @override
